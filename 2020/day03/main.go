@@ -10,7 +10,7 @@ import (
 func parseInput(file string) []string {
 	content, err := os.ReadFile(file)
 	if err != nil {
-		log.Fatalf("Faild to read input file: %v", err)
+		log.Fatalf("Failed to read input file: %v", err)
 	}
 	lines := strings.Split(string(content), "\n")
 	var data []string
