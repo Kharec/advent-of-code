@@ -6,6 +6,8 @@ The goal is to practice programming and problem-solving habits while keeping eac
 
 It uses pure Go, no external dependencies.
 
+Also, tt's a fresh start from 2025. So I was able to do some exercises from other years along the way, which explains why no year is complete and why everything is in "recent" Go.
+
 ## Requirements
 
 - Go 1.25
