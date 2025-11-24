@@ -2,43 +2,31 @@ package main
 
 import "testing"
 
+var testInput = []string{
+	"..##.......",
+	"#...#...#..",
+	".#....#..#.",
+	"..#.#...#.#",
+	".#...##..#.",
+	"..#.##.....",
+	".#.#.#....#",
+	".#........#",
+	"#.##...#...",
+	"#...##....#",
+	".#..#...#.#",
+}
+
 func TestPartOne(t *testing.T) {
-	input := []string{
-		"..##.......",
-		"#...#...#..",
-		".#....#..#.",
-		"..#.#...#.#",
-		".#...##..#.",
-		"..#.##.....",
-		".#.#.#....#",
-		".#........#",
-		"#.##...#...",
-		"#...##....#",
-		".#..#...#.#",
-	}
 	expected := 7
-	got := PartOne(input)
+	got := PartOne(testInput)
 	if got != expected {
 		t.Errorf("PartOne() = %d, want %d", got, expected)
 	}
 }
 
 func TestPartTwo(t *testing.T) {
-	input := []string{
-		"..##.......",
-		"#...#...#..",
-		".#....#..#.",
-		"..#.#...#.#",
-		".#...##..#.",
-		"..#.##.....",
-		".#.#.#....#",
-		".#........#",
-		"#.##...#...",
-		"#...##....#",
-		".#..#...#.#",
-	}
 	expected := 336
-	got := PartTwo(input)
+	got := PartTwo(testInput)
 	if got != expected {
 		t.Errorf("PartTwo() = %d, want %d", got, expected)
 	}
