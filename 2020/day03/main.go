@@ -12,12 +12,7 @@ func parseInput(file string) []string {
 	if err != nil {
 		log.Fatalf("Failed to read input file: %v", err)
 	}
-	lines := strings.Split(string(content), "\n")
-	var data []string
-	for _, line := range lines {
-		data = append(data, line)
-	}
-	return data
+	return strings.Split(string(content), "\n")
 }
 
 func PartOne(input []string) int {
