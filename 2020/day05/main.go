@@ -50,7 +50,36 @@ func PartOne(input []string) int {
 	return maxSeatID
 }
 
+func PartTwo(input []string) int {
+	seatIDs := make(map[int]bool)
+	minSeatID := 1000
+	maxSeatID := 0
+
+	for _, pass := range input {
+		if len(pass) < 10 {
+			continue
+		}
+		seatID := calculateSeatID(pass)
+		seatIDs[seatID] = true
+		if seatID < minSeatID {
+			minSeatID = seatID
+		}
+		if seatID > maxSeatID {
+			maxSeatID = seatID
+		}
+	}
+
+	for seatID := minSeatID + 1; seatID < maxSeatID; seatID++ {
+		if !seatIDs[seatID] && seatIDs[seatID-1] && seatIDs[seatID+1] {
+			return seatID
+		}
+	}
+
+	return 0
+}
+
 func main() {
 	input := parseInput("input.txt")
 	fmt.Println("Part 1:", PartOne(input))
+	fmt.Println("Part 2:", PartTwo(input))
 }
