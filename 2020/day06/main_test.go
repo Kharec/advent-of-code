@@ -27,3 +27,11 @@ func TestPartOne(t *testing.T) {
 		t.Errorf("PartOne() = %d, want %d", got, expected)
 	}
 }
+
+func TestPartTwo(t *testing.T) {
+	expected := 6
+	got := PartTwo(input)
+	if got != expected {
+		t.Errorf("PartTwo() = %d, want %d", got, expected)
+	}
+}
