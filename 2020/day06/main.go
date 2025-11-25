@@ -39,7 +39,37 @@ func PartOne(input []string) int {
 	return total
 }
 
+func PartTwo(input []string) int {
+	total := 0
+	groupAnswers := make(map[rune]int)
+	groupSize := 0
+
+	for idx, line := range input {
+		if line != "" {
+			groupSize++
+			for _, char := range line {
+				if char >= 'a' && char <= 'z' {
+					groupAnswers[char]++
+				}
+			}
+		}
+
+		if line == "" || idx == len(input)-1 {
+			for _, count := range groupAnswers {
+				if count == groupSize {
+					total++
+				}
+			}
+			groupAnswers = make(map[rune]int)
+			groupSize = 0
+		}
+	}
+
+	return total
+}
+
 func main() {
 	input := parseInput("input.txt")
 	fmt.Println("Part 1:", PartOne(input))
+	fmt.Println("Part 2:", PartTwo(input))
 }
