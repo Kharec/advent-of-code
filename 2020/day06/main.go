@@ -19,7 +19,7 @@ func PartOne(input []string) int {
 	total := 0
 	groupAnswers := make(map[rune]bool)
 
-	for i, line := range input {
+	for idx, line := range input {
 		if line != "" {
 			for _, char := range line {
 				if char >= 'a' && char <= 'z' {
@@ -28,7 +28,7 @@ func PartOne(input []string) int {
 			}
 		}
 
-		if line == "" || i == len(input)-1 {
+		if line == "" || idx == len(input)-1 {
 			total += len(groupAnswers)
 			groupAnswers = make(map[rune]bool)
 		}
