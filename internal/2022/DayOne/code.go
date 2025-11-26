@@ -2,7 +2,6 @@ package dayone
 
 import (
 	"advent-of-code/internal/registry"
-	"cmp"
 	"os"
 	"slices"
 	"strconv"
@@ -50,13 +49,12 @@ func PartTwo(input []string) int {
 	}
 	totals = append(totals, currentElf)
 
-	slices.SortFunc(totals, func(a, b int) int {
-		return cmp.Compare(b, a)
-	})
+	slices.Sort(totals)
+	slices.Reverse(totals)
 
 	sum := 0
-	for idx := 0; idx < 3 && idx < len(totals); idx++ {
-		sum += totals[idx]
+	for _, val := range totals[:min(3, len(totals))] {
+		sum += val
 	}
 	return sum
 }
