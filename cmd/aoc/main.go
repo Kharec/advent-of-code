@@ -8,6 +8,7 @@ import (
 	"path/filepath"
 	"regexp"
 
+	_ "advent-of-code/internal/2020/DayEight"
 	_ "advent-of-code/internal/2020/DayFour"
 	_ "advent-of-code/internal/2020/DayOne"
 	_ "advent-of-code/internal/2020/DaySeven"
