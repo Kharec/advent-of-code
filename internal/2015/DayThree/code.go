@@ -39,5 +39,30 @@ func PartOne(data string) int {
 }
 
 func PartTwo(data string) int {
-	return 0
+	houses := make(map[coordinates]int)
+	santaX, santaY := 0, 0
+	robotX, robotY := 0, 0
+	houses[coordinates{0, 0}] = 2
+
+	for idx, direction := range data {
+		var x, y *int
+		if idx%2 == 0 {
+			x, y = &santaX, &santaY
+		} else {
+			x, y = &robotX, &robotY
+		}
+
+		switch direction {
+		case '>':
+			*x++
+		case '<':
+			*x--
+		case '^':
+			*y++
+		case 'v':
+			*y--
+		}
+		houses[coordinates{*x, *y}]++
+	}
+	return len(houses)
 }
