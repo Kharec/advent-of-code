@@ -74,4 +74,3 @@ func PartTwo(data []string) int {
 	}
 	return valid
 }
-

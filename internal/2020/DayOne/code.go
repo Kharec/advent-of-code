@@ -47,4 +47,3 @@ func PartTwo(data []int) int {
 	}
 	return 0
 }
-

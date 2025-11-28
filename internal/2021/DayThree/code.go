@@ -114,4 +114,3 @@ func PartTwo(data []string) int {
 
 	return oxygenRating * co2Rating
 }
-

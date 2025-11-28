@@ -31,4 +31,3 @@ func TestPartTwo(t *testing.T) {
 		t.Errorf("PartTwo() = %d, want %d", got, expected)
 	}
 }
-

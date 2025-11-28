@@ -151,4 +151,3 @@ func PartTwo(data []string) int {
 	}
 	return count
 }
-

@@ -57,4 +57,3 @@ func PartTwo(data []string) int {
 	}
 	return horizontal * depth
 }
-

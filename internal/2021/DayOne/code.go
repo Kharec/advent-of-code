@@ -40,4 +40,3 @@ func PartTwo(data []int) int {
 	}
 	return count
 }
-
