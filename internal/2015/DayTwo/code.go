@@ -29,5 +29,20 @@ func PartOne(data []string) int {
 }
 
 func PartTwo(data []string) int {
-	return 0
+	total := 0
+	for _, line := range data {
+		parts := strings.Split(line, "x")
+		length, _ := strconv.Atoi(parts[0])
+		width, _ := strconv.Atoi(parts[1])
+		height, _ := strconv.Atoi(parts[2])
+
+		smallest := min(length, width, height)
+		middle := length + width + height - smallest - max(length, width, height)
+
+		perimeter := 2 * (smallest + middle)
+		volume := length * width * height
+
+		total += perimeter + volume
+	}
+	return total
 }
