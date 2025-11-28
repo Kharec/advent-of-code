@@ -28,3 +28,23 @@ func TestPartOne(t *testing.T) {
 		})
 	}
 }
+
+func TestPartTwo(t *testing.T) {
+	tests := []struct {
+		name     string
+		input    string
+		expected int
+	}{
+		{")", ")", 1},
+		{"()())", "()())", 5},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			got := PartTwo(tt.input)
+			if got != tt.expected {
+				t.Errorf("PartTwo(%q) = %d, want %d", tt.input, got, tt.expected)
+			}
+		})
+	}
+}
