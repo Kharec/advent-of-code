@@ -28,5 +28,17 @@ func PartOne(data string) int {
 }
 
 func PartTwo(data string) int {
+	floor := 0
+	for idx, char := range data {
+		switch char {
+		case '(':
+			floor++
+		case ')':
+			floor--
+		}
+		if floor == -1 {
+			return idx + 1
+		}
+	}
 	return 0
 }
