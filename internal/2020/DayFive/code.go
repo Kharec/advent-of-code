@@ -39,9 +39,9 @@ func ParseInput(filepath string) []string {
 	return strings.Split(string(content), "\n")
 }
 
-func PartOne(input []string) int {
+func PartOne(data []string) int {
 	maxSeatID := 0
-	for _, pass := range input {
+	for _, pass := range data {
 		seatID := calculateSeatID(pass)
 		if seatID > maxSeatID {
 			maxSeatID = seatID
@@ -50,12 +50,12 @@ func PartOne(input []string) int {
 	return maxSeatID
 }
 
-func PartTwo(input []string) int {
+func PartTwo(data []string) int {
 	seatIDs := make(map[int]bool)
 	minSeatID := 1000
 	maxSeatID := 0
 
-	for _, pass := range input {
+	for _, pass := range data {
 		if len(pass) < 10 {
 			continue
 		}

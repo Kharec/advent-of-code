@@ -15,11 +15,11 @@ func ParseInput(filepath string) []string {
 	return strings.Split(strings.TrimSpace(string(content)), "\n")
 }
 
-func PartOne(input []string) int {
+func PartOne(data []string) int {
 	total := 0
 	groupAnswers := make(map[rune]bool)
 
-	for idx, line := range input {
+	for idx, line := range data {
 		if line != "" {
 			for _, char := range line {
 				if char >= 'a' && char <= 'z' {
@@ -28,7 +28,7 @@ func PartOne(input []string) int {
 			}
 		}
 
-		if line == "" || idx == len(input)-1 {
+		if line == "" || idx == len(data)-1 {
 			total += len(groupAnswers)
 			groupAnswers = make(map[rune]bool)
 		}
@@ -39,12 +39,12 @@ func PartOne(input []string) int {
 	return total
 }
 
-func PartTwo(input []string) int {
+func PartTwo(data []string) int {
 	total := 0
 	groupAnswers := make(map[rune]int)
 	groupSize := 0
 
-	for idx, line := range input {
+	for idx, line := range data {
 		if line != "" {
 			groupSize++
 			for _, char := range line {
@@ -54,7 +54,7 @@ func PartTwo(input []string) int {
 			}
 		}
 
-		if line == "" || idx == len(input)-1 {
+		if line == "" || idx == len(data)-1 {
 			for _, count := range groupAnswers {
 				if count == groupSize {
 					total++
@@ -67,4 +67,3 @@ func PartTwo(input []string) int {
 
 	return total
 }
-

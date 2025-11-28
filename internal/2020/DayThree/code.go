@@ -15,14 +15,14 @@ func ParseInput(filepath string) []string {
 	return strings.Split(string(content), "\n")
 }
 
-func PartOne(input []string) int {
+func PartOne(data []string) int {
 	trees := 0
 	column := 0
-	for row := range input {
-		if len(input[row]) == 0 {
+	for row := range data {
+		if len(data[row]) == 0 {
 			continue
 		}
-		if input[row][column%len(input[row])] == '#' {
+		if data[row][column%len(data[row])] == '#' {
 			trees++
 		}
 		column += 3
@@ -30,17 +30,17 @@ func PartOne(input []string) int {
 	return trees
 }
 
-func PartTwo(input []string) int {
+func PartTwo(data []string) int {
 	result := 1
 	slopes := [][]int{{1, 1}, {3, 1}, {5, 1}, {7, 1}, {1, 2}}
 	for _, slope := range slopes {
 		trees := 0
 		column := 0
-		for row := 0; row < len(input); row += slope[1] {
-			if len(input[row]) == 0 {
+		for row := 0; row < len(data); row += slope[1] {
+			if len(data[row]) == 0 {
 				continue
 			}
-			if input[row][column%len(input[row])] == '#' {
+			if data[row][column%len(data[row])] == '#' {
 				trees++
 			}
 			column += slope[0]
@@ -49,4 +49,3 @@ func PartTwo(input []string) int {
 	}
 	return result
 }
-

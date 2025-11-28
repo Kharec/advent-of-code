@@ -17,10 +17,10 @@ func ParseInput(filepath string) []string {
 	return strings.Split(string(content), "\n")
 }
 
-func PartOne(input []string) int {
+func PartOne(data []string) int {
 	maxCalories, currentElf := 0, 0
 
-	for _, line := range input {
+	for _, line := range data {
 		if line == "" {
 			maxCalories = max(maxCalories, currentElf)
 			currentElf = 0
@@ -33,11 +33,11 @@ func PartOne(input []string) int {
 	return max(maxCalories, currentElf)
 }
 
-func PartTwo(input []string) int {
+func PartTwo(data []string) int {
 	var totals []int
 	currentElf := 0
 
-	for _, line := range input {
+	for _, line := range data {
 		if line == "" {
 			totals = append(totals, currentElf)
 			currentElf = 0
