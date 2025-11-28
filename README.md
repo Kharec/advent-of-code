@@ -8,6 +8,8 @@ It uses pure Go, no external dependencies.
 
 Also, it's a fresh start from 2025. I do some exercises from other years along the way, which explains why no year is complete and why everything is in "recent" Go.
 
+Ultimately, my goal is to complete all the years of Advent of Code here.
+
 ## Requirements
 
 - Go 1.25
