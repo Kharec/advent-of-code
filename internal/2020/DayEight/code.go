@@ -35,15 +35,14 @@ func parseInstructions(data []string) []instruction {
 	return instructions
 }
 
-func PartOne(data []string) int {
-	instructions := parseInstructions(data)
+func execute(instructions []instruction) (accumulator int, terminatedNormally bool) {
 	visited := make(map[int]bool)
-	accumulator := 0
+	accumulator = 0
 	pc := 0
 
 	for pc < len(instructions) {
 		if visited[pc] {
-			return accumulator
+			return accumulator, false
 		}
 		visited[pc] = true
 
@@ -59,6 +58,12 @@ func PartOne(data []string) int {
 		}
 	}
 
+	return accumulator, true
+}
+
+func PartOne(data []string) int {
+	instructions := parseInstructions(data)
+	accumulator, _ := execute(instructions)
 	return accumulator
 }
 
