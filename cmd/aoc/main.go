@@ -9,6 +9,7 @@ import (
 	"regexp"
 
 	_ "advent-of-code/internal/2015/DayOne"
+	_ "advent-of-code/internal/2015/DayThree"
 	_ "advent-of-code/internal/2015/DayTwo"
 	_ "advent-of-code/internal/2020/DayEight"
 	_ "advent-of-code/internal/2020/DayFour"
