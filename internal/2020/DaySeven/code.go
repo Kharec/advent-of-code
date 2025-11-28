@@ -90,5 +90,16 @@ func PartOne(data []string) int {
 }
 
 func PartTwo(data []string) int {
-	return 0
+	forwardGraph := buildForwardGraph(data)
+	var countIndividualBags func(string) int
+
+	countIndividualBags = func(bag string) int {
+		total := 0
+		for _, child := range forwardGraph[bag] {
+			total += child.count + child.count*countIndividualBags(child.bag)
+		}
+		return total
+	}
+
+	return countIndividualBags("shiny gold")
 }
