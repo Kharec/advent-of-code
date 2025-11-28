@@ -16,11 +16,6 @@ func init() {
 	registry.Register("2020D8", ParseInput, PartOne, PartTwo)
 }
 
-func ParseInput(filepath string) []string {
-	content, _ := os.ReadFile(filepath)
-	return strings.Split(string(content), "\n")
-}
-
 func parseInstructions(data []string) []instruction {
 	instructions := make([]instruction, 0, len(data))
 	for _, line := range data {
@@ -61,6 +56,11 @@ func execute(instructions []instruction) (accumulator int, terminatedNormally bo
 	return accumulator, true
 }
 
+func ParseInput(filepath string) []string {
+	content, _ := os.ReadFile(filepath)
+	return strings.Split(string(content), "\n")
+}
+
 func PartOne(data []string) int {
 	instructions := parseInstructions(data)
 	accumulator, _ := execute(instructions)
@@ -68,5 +68,27 @@ func PartOne(data []string) int {
 }
 
 func PartTwo(data []string) int {
+	instructions := parseInstructions(data)
+
+	for idx := range instructions {
+		if instructions[idx].operation != "jmp" && instructions[idx].operation != "nop" {
+			continue
+		}
+
+		originalOperation := instructions[idx].operation
+		if originalOperation == "jmp" {
+			instructions[idx].operation = "nop"
+		} else {
+			instructions[idx].operation = "jmp"
+		}
+
+		accumulator, terminatedNormally := execute(instructions)
+		instructions[idx].operation = originalOperation
+
+		if terminatedNormally {
+			return accumulator
+		}
+	}
+
 	return 0
 }
