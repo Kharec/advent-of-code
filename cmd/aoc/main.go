@@ -8,11 +8,14 @@ import (
 	"path/filepath"
 	"regexp"
 
+	// 2015
 	_ "advent-of-code/internal/2015/DayFive"
 	_ "advent-of-code/internal/2015/DayFour"
 	_ "advent-of-code/internal/2015/DayOne"
 	_ "advent-of-code/internal/2015/DayThree"
 	_ "advent-of-code/internal/2015/DayTwo"
+
+	// 2020
 	_ "advent-of-code/internal/2020/DayEight"
 	_ "advent-of-code/internal/2020/DayFour"
 	_ "advent-of-code/internal/2020/DayOne"
@@ -20,6 +23,8 @@ import (
 	_ "advent-of-code/internal/2020/DaySix"
 	_ "advent-of-code/internal/2020/DayThree"
 	_ "advent-of-code/internal/2020/DayTwo"
+
+	// 2021
 	_ "advent-of-code/internal/2021/DayOne"
 	_ "advent-of-code/internal/2021/DayThree"
 	_ "advent-of-code/internal/2021/DayTwo"
