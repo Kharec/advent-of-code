@@ -16,7 +16,7 @@ func TestPartOne(t *testing.T) {
 		t.Run(tt.name, func(t *testing.T) {
 			got := PartOne([]string{tt.input})
 			if got != tt.expected {
-				t.Errorf("PartOne(%q) = %d, want %d", tt.input, got, tt.expected)
+				t.Errorf("PartOne() = %d, want %d", got, tt.expected)
 			}
 		})
 	}
@@ -36,7 +36,7 @@ func TestPartTwo(t *testing.T) {
 		t.Run(tt.name, func(t *testing.T) {
 			got := PartTwo([]string{tt.input})
 			if got != tt.expected {
-				t.Errorf("PartTwo(%q) = %d, want %d", tt.input, got, tt.expected)
+				t.Errorf("PartTwo() = %d, want %d", got, tt.expected)
 			}
 		})
 	}
