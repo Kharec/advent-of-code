@@ -45,6 +45,16 @@ To connect each solution to the CLI, the repository uses a central registry loca
 
 When running a solution, the CLI (`cmd/aoc/main.go`) looks up the appropriate runner from the registry based on your command-line input, uses the parsing function to load the input data, and then runs the desired part (or both parts) using the registered solution functions.
 
+### Handling string answers
+
+Occasionally, a puzzle requires a string as the answer. However, my solution framework expects PartOne/PartTwo functions to return integers.
+
+To work around this, I print the string result (see [2018D2P2](https://git.kharec.info/Kharec/advent-of-code/tree/main/internal/2018/DayTwo/code.go)) and return a dummy integer to satisfy the type requirements.
+
+Meanwhile, the corresponding [test](https://git.kharec.info/Kharec/advent-of-code/tree/main/internal/2018/DayTwo/code_test.go) captures the output and verifies that the correct string is produced.
+
+It's not the most elegant solution, but since only a handful of days across all Advent of Code years require a string result, this compromise keeps the rest of the code simple.
+
 ## Usage
 
 Build the CLI tool:
