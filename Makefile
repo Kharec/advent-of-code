@@ -8,7 +8,7 @@ build:
 	@$(GO) build -o $(BIN) ./cmd/aoc
 
 test:
-	@$(GO) test ./...
+	@$(GO) test ./internal/...
 
 clean:
 	@rm -f $(BIN)
