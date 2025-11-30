@@ -2,6 +2,7 @@ package daytwo
 
 import (
 	"advent-of-code/internal/registry"
+	"fmt"
 	"os"
 	"strings"
 )
@@ -46,4 +47,35 @@ func PartOne(data []string) int {
 	}
 
 	return countWithTwo * countWithThree
+}
+
+func PartTwo(data []string) int {
+	for idx := range data {
+		for otherIdx := idx + 1; otherIdx < len(data); otherIdx++ {
+			if data[idx] == "" || data[otherIdx] == "" {
+				continue
+			}
+
+			differenceCount := 0
+			differingPosition := -1
+
+			if len(data[idx]) != len(data[otherIdx]) {
+				continue
+			}
+
+			for position := 0; position < len(data[idx]); position++ {
+				if data[idx][position] != data[otherIdx][position] {
+					differenceCount++
+					differingPosition = position
+				}
+			}
+
+			if differenceCount == 1 {
+				common := data[idx][:differingPosition] + data[idx][differingPosition+1:]
+				fmt.Println(common)
+				return 0
+			}
+		}
+	}
+	return 0
 }
