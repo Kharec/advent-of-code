@@ -15,6 +15,9 @@ import (
 	_ "advent-of-code/internal/2015/DayThree"
 	_ "advent-of-code/internal/2015/DayTwo"
 
+	// 2018
+	_ "advent-of-code/internal/2018/DayOne"
+
 	// 2020
 	_ "advent-of-code/internal/2020/DayEight"
 	_ "advent-of-code/internal/2020/DayFour"
