@@ -45,6 +45,22 @@ To connect each solution to the CLI, the repository uses a central registry loca
 
 When running a solution, the CLI (`cmd/aoc/main.go`) looks up the appropriate runner from the registry based on your command-line input, uses the parsing function to load the input data, and then runs the desired part (or both parts) using the registered solution functions.
 
+### Starting a new day
+
+```bash
+make 2020D1
+```
+
+This will create the following files:
+
+```bash
+internal/2020/DayOne/code.go
+internal/2020/DayOne/code_test.go
+internal/data/2020/DayOne/input.txt
+```
+
+If the `ADVENTOFCODE_SESSION` environment variable is set with your Advent of Code session cookie, the input will be downloaded from the AOC website right into the corresponding `internal/data` directory, else it will create an empty `input.txt` file.
+
 ### Handling string answers
 
 Occasionally, a puzzle requires a string as the answer. However, my solution framework expects PartOne/PartTwo functions to return integers.
