@@ -33,6 +33,9 @@ import (
 	_ "advent-of-code/internal/2021/DayThree"
 	_ "advent-of-code/internal/2021/DayTwo"
 	_ "advent-of-code/internal/2022/DayOne"
+
+	// 2025
+	_ "advent-of-code/internal/2025/DayOne"
 )
 
 func capitalize(day string) string {
