@@ -32,7 +32,10 @@ import (
 	_ "advent-of-code/internal/2021/DayOne"
 	_ "advent-of-code/internal/2021/DayThree"
 	_ "advent-of-code/internal/2021/DayTwo"
+
+	// 2022
 	_ "advent-of-code/internal/2022/DayOne"
+	_ "advent-of-code/internal/2022/DayTwo"
 
 	// 2025
 	_ "advent-of-code/internal/2025/DayOne"
