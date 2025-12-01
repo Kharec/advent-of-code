@@ -12,19 +12,18 @@ func init() {
 	registry.Register("2015D7", ParseInput, PartOne, PartTwo)
 }
 
-func ParseInput(filepath string) []string {
+func ParseInput(filepath string) map[string]string {
 	content, _ := os.ReadFile(filepath)
-	return strings.Split(string(content), "\n")
-}
-
-func PartOne(data []string) int {
 	instructions := make(map[string]string)
-	for _, line := range data {
+	for _, line := range strings.Split(string(content), "\n") {
 		if parts := strings.Split(line, " -> "); len(parts) == 2 {
 			instructions[parts[1]] = parts[0]
 		}
 	}
+	return instructions
+}
 
+func evaluateWire(wire string, instructions map[string]string) uint16 {
 	cache := make(map[string]uint16)
 	var evaluate func(string) uint16
 	evaluate = func(wire string) uint16 {
@@ -61,9 +60,13 @@ func PartOne(data []string) int {
 		cache[wire] = result
 		return result
 	}
-	return int(evaluate("a"))
+	return evaluate(wire)
 }
 
-func PartTwo(data []string) int {
+func PartOne(instructions map[string]string) int {
+	return int(evaluateWire("a", instructions))
+}
+
+func PartTwo(instructions map[string]string) int {
 	return 0
 }
