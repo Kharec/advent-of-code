@@ -38,5 +38,25 @@ func PartOne(data []string) int {
 }
 
 func PartTwo(data []string) int {
-	return 0
+	totalScore := 0
+	for _, line := range data {
+		opponent := line[0]
+		outcome := line[2]
+
+		var me byte
+		switch outcome {
+		case 'Y':
+			me = 'X' + (opponent - 'A')
+		case 'Z':
+			me = 'X' + ((opponent-'A')+1)%3
+		default:
+			me = 'X' + ((opponent-'A')+2)%3
+		}
+
+		shapeScore := int(me - 'X' + 1)
+		outcomeScore := int(outcome-'X') * 3
+
+		totalScore += shapeScore + outcomeScore
+	}
+	return totalScore
 }
