@@ -53,8 +53,13 @@ new:
 	mkdir -p internal/data/$$YEAR/Day$$DAY_NAME; \
 	touch internal/$$YEAR/Day$$DAY_NAME/code.go; \
 	touch internal/$$YEAR/Day$$DAY_NAME/code_test.go; \
-	touch internal/data/$$YEAR/Day$$DAY_NAME/input.txt; \
-	echo "Created files for $$DAY_ARG"
+	if [ -n "$$ADVENTOFCODE_SESSION" ]; then \
+		curl -s -H "Cookie: session=$$ADVENTOFCODE_SESSION" \
+			https://adventofcode.com/$$YEAR/day/$$DAY_NUM/input \
+			| perl -pe 'chomp if eof' > internal/data/$$YEAR/Day$$DAY_NAME/input.txt; \
+	else \
+		touch internal/data/$$YEAR/Day$$DAY_NAME/input.txt; \
+	fi; \
 
 %:
 	@:
