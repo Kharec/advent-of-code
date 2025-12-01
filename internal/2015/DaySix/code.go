@@ -16,40 +16,55 @@ func ParseInput(filepath string) []string {
 	return strings.Split(strings.TrimSpace(string(content)), "\n")
 }
 
+type instruction struct {
+	op     string
+	x1, y1 int
+	x2, y2 int
+}
+
+func parseInstruction(line string) (instruction, bool) {
+	var op string
+	var remaining string
+
+	switch {
+	case strings.HasPrefix(line, "turn on "):
+		op = "on"
+		remaining = strings.TrimPrefix(line, "turn on ")
+	case strings.HasPrefix(line, "turn off "):
+		op = "off"
+		remaining = strings.TrimPrefix(line, "turn off ")
+	case strings.HasPrefix(line, "toggle "):
+		op = "toggle"
+		remaining = strings.TrimPrefix(line, "toggle ")
+	default:
+		return instruction{}, false
+	}
+
+	parts := strings.Split(remaining, " through ")
+	firstCoordinates := strings.Split(parts[0], ",")
+	secondCoordinates := strings.Split(parts[1], ",")
+
+	x1, _ := strconv.Atoi(firstCoordinates[0])
+	y1, _ := strconv.Atoi(firstCoordinates[1])
+	x2, _ := strconv.Atoi(secondCoordinates[0])
+	y2, _ := strconv.Atoi(secondCoordinates[1])
+
+	return instruction{op: op, x1: x1, y1: y1, x2: x2, y2: y2}, true
+}
+
 func PartOne(data []string) int {
 	grid := make([]bool, 1000*1000)
 
 	for _, line := range data {
-		var op string
-		var x1, y1, x2, y2 int
-
-		switch {
-		case strings.HasPrefix(line, "turn on "):
-			op = "on"
-			line = strings.TrimPrefix(line, "turn on ")
-		case strings.HasPrefix(line, "turn off "):
-			op = "off"
-			line = strings.TrimPrefix(line, "turn off ")
-		case strings.HasPrefix(line, "toggle "):
-			op = "toggle"
-			line = strings.TrimPrefix(line, "toggle ")
-		default:
+		instruction, ok := parseInstruction(line)
+		if !ok {
 			continue
 		}
 
-		parts := strings.Split(line, " through ")
-		firstCoordinates := strings.Split(parts[0], ",")
-		secondCoordinates := strings.Split(parts[1], ",")
-
-		x1, _ = strconv.Atoi(firstCoordinates[0])
-		y1, _ = strconv.Atoi(firstCoordinates[1])
-		x2, _ = strconv.Atoi(secondCoordinates[0])
-		y2, _ = strconv.Atoi(secondCoordinates[1])
-
-		for y := y1; y <= y2; y++ {
-			for x := x1; x <= x2; x++ {
+		for y := instruction.y1; y <= instruction.y2; y++ {
+			for x := instruction.x1; x <= instruction.x2; x++ {
 				idx := y*1000 + x
-				switch op {
+				switch instruction.op {
 				case "on":
 					grid[idx] = true
 				case "off":
@@ -74,36 +89,15 @@ func PartTwo(data []string) int {
 	grid := make([]int, 1000*1000)
 
 	for _, line := range data {
-		var op string
-		var x1, y1, x2, y2 int
-
-		switch {
-		case strings.HasPrefix(line, "turn on "):
-			op = "on"
-			line = strings.TrimPrefix(line, "turn on ")
-		case strings.HasPrefix(line, "turn off "):
-			op = "off"
-			line = strings.TrimPrefix(line, "turn off ")
-		case strings.HasPrefix(line, "toggle "):
-			op = "toggle"
-			line = strings.TrimPrefix(line, "toggle ")
-		default:
+		inst, ok := parseInstruction(line)
+		if !ok {
 			continue
 		}
 
-		parts := strings.Split(line, " through ")
-		firstCoordinates := strings.Split(parts[0], ",")
-		secondCoordinates := strings.Split(parts[1], ",")
-
-		x1, _ = strconv.Atoi(firstCoordinates[0])
-		y1, _ = strconv.Atoi(firstCoordinates[1])
-		x2, _ = strconv.Atoi(secondCoordinates[0])
-		y2, _ = strconv.Atoi(secondCoordinates[1])
-
-		for y := y1; y <= y2; y++ {
-			for x := x1; x <= x2; x++ {
+		for y := inst.y1; y <= inst.y2; y++ {
+			for x := inst.x1; x <= inst.x2; x++ {
 				idx := y*1000 + x
-				switch op {
+				switch inst.op {
 				case "on":
 					grid[idx]++
 				case "off":
