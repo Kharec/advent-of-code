@@ -39,5 +39,25 @@ func PartOne(data []string) int {
 }
 
 func PartTwo(data []string) int {
-	return 0
+	position := 50
+	count := 0
+
+	for _, rotation := range data {
+		direction := rotation[0]
+		distance, _ := strconv.Atoi(rotation[1:])
+
+		for range distance {
+			if direction == 'L' {
+				position = (position - 1 + 100) % 100
+			} else {
+				position = (position + 1) % 100
+			}
+
+			if position == 0 {
+				count++
+			}
+		}
+	}
+
+	return count
 }
