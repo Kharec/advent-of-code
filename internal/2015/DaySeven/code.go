@@ -1,6 +1,7 @@
 package dayseven
 
 import (
+	"maps"
 	"os"
 	"strconv"
 	"strings"
@@ -68,5 +69,9 @@ func PartOne(instructions map[string]string) int {
 }
 
 func PartTwo(instructions map[string]string) int {
-	return 0
+	signalA := PartOne(instructions)
+	instructionsCopy := make(map[string]string, len(instructions))
+	maps.Copy(instructionsCopy, instructions)
+	instructionsCopy["b"] = strconv.Itoa(signalA)
+	return int(evaluateWire("a", instructionsCopy))
 }
