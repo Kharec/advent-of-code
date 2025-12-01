@@ -58,6 +58,4 @@ clean:
 			touch internal/data/$$YEAR/Day$$DAY_NAME/input.txt; \
 		fi; \
 		echo "$$DAY_ARG ready to be solved."; \
-	else \
-		:; \
 	fi
