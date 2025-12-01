@@ -7,19 +7,14 @@ import (
 	"strings"
 )
 
-func init() {
-	registry.Register("2015D6", ParseInput, PartOne, PartTwo)
-}
-
-func ParseInput(filepath string) []string {
-	content, _ := os.ReadFile(filepath)
-	return strings.Split(strings.TrimSpace(string(content)), "\n")
-}
-
 type instruction struct {
 	operation string
 	x1, y1    int
 	x2, y2    int
+}
+
+func init() {
+	registry.Register("2015D6", ParseInput, PartOne, PartTwo)
 }
 
 func parseInstruction(line string) (instruction, bool) {
@@ -50,6 +45,11 @@ func parseInstruction(line string) (instruction, bool) {
 	y2, _ := strconv.Atoi(secondCoordinates[1])
 
 	return instruction{operation: op, x1: x1, y1: y1, x2: x2, y2: y2}, true
+}
+
+func ParseInput(filepath string) []string {
+	content, _ := os.ReadFile(filepath)
+	return strings.Split(strings.TrimSpace(string(content)), "\n")
 }
 
 func PartOne(data []string) int {
