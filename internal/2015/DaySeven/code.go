@@ -15,7 +15,7 @@ func init() {
 func ParseInput(filepath string) map[string]string {
 	content, _ := os.ReadFile(filepath)
 	instructions := make(map[string]string)
-	for _, line := range strings.Split(string(content), "\n") {
+	for line := range strings.SplitSeq(string(content), "\n") {
 		if parts := strings.Split(line, " -> "); len(parts) == 2 {
 			instructions[parts[1]] = parts[0]
 		}
