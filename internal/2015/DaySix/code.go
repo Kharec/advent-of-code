@@ -17,9 +17,9 @@ func ParseInput(filepath string) []string {
 }
 
 type instruction struct {
-	op     string
-	x1, y1 int
-	x2, y2 int
+	operation string
+	x1, y1    int
+	x2, y2    int
 }
 
 func parseInstruction(line string) (instruction, bool) {
@@ -49,7 +49,7 @@ func parseInstruction(line string) (instruction, bool) {
 	x2, _ := strconv.Atoi(secondCoordinates[0])
 	y2, _ := strconv.Atoi(secondCoordinates[1])
 
-	return instruction{op: op, x1: x1, y1: y1, x2: x2, y2: y2}, true
+	return instruction{operation: op, x1: x1, y1: y1, x2: x2, y2: y2}, true
 }
 
 func PartOne(data []string) int {
@@ -64,7 +64,7 @@ func PartOne(data []string) int {
 		for y := instruction.y1; y <= instruction.y2; y++ {
 			for x := instruction.x1; x <= instruction.x2; x++ {
 				idx := y*1000 + x
-				switch instruction.op {
+				switch instruction.operation {
 				case "on":
 					grid[idx] = true
 				case "off":
@@ -89,15 +89,15 @@ func PartTwo(data []string) int {
 	grid := make([]int, 1000*1000)
 
 	for _, line := range data {
-		inst, ok := parseInstruction(line)
+		instruction, ok := parseInstruction(line)
 		if !ok {
 			continue
 		}
 
-		for y := inst.y1; y <= inst.y2; y++ {
-			for x := inst.x1; x <= inst.x2; x++ {
+		for y := instruction.y1; y <= instruction.y2; y++ {
+			for x := instruction.x1; x <= instruction.x2; x++ {
 				idx := y*1000 + x
-				switch inst.op {
+				switch instruction.operation {
 				case "on":
 					grid[idx]++
 				case "off":
