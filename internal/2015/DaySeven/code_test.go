@@ -1,17 +1,19 @@
 package dayseven
 
-import "testing"
+import (
+	"testing"
+)
 
-var testInput = []string{
-	"123 -> x",
-	"456 -> y",
-	"x AND y -> d",
-	"x OR y -> e",
-	"x LSHIFT 2 -> f",
-	"y RSHIFT 2 -> g",
-	"NOT x -> h",
-	"NOT y -> i",
-	"d -> a",
+var testInput = map[string]string{
+	"x": "123",
+	"y": "456",
+	"d": "x AND y",
+	"e": "x OR y",
+	"f": "x LSHIFT 2",
+	"g": "y RSHIFT 2",
+	"h": "NOT x",
+	"i": "NOT y",
+	"a": "d",
 }
 
 func TestPartOne(t *testing.T) {
