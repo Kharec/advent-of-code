@@ -9,41 +9,12 @@ import (
 
 	"advent-of-code/internal/registry"
 
-	// 2015
-	_ "advent-of-code/internal/2015/DayFive"
-	_ "advent-of-code/internal/2015/DayFour"
-	_ "advent-of-code/internal/2015/DayOne"
-	_ "advent-of-code/internal/2015/DaySeven"
-	_ "advent-of-code/internal/2015/DaySix"
-	_ "advent-of-code/internal/2015/DayThree"
-	_ "advent-of-code/internal/2015/DayTwo"
-
-	// 2018
-	_ "advent-of-code/internal/2018/DayOne"
-	_ "advent-of-code/internal/2018/DayThree"
-	_ "advent-of-code/internal/2018/DayTwo"
-
-	// 2020
-	_ "advent-of-code/internal/2020/DayEight"
-	_ "advent-of-code/internal/2020/DayFour"
-	_ "advent-of-code/internal/2020/DayOne"
-	_ "advent-of-code/internal/2020/DaySeven"
-	_ "advent-of-code/internal/2020/DaySix"
-	_ "advent-of-code/internal/2020/DayThree"
-	_ "advent-of-code/internal/2020/DayTwo"
-
-	// 2021
-	_ "advent-of-code/internal/2021/DayOne"
-	_ "advent-of-code/internal/2021/DayThree"
-	_ "advent-of-code/internal/2021/DayTwo"
-
-	// 2022
-	_ "advent-of-code/internal/2022/DayOne"
-	_ "advent-of-code/internal/2022/DayTwo"
-
-	// 2025
-	_ "advent-of-code/internal/2025/DayOne"
-	_ "advent-of-code/internal/2025/DayTwo"
+	_ "advent-of-code/internal/2015"
+	_ "advent-of-code/internal/2018"
+	_ "advent-of-code/internal/2020"
+	_ "advent-of-code/internal/2021"
+	_ "advent-of-code/internal/2022"
+	_ "advent-of-code/internal/2025"
 )
 
 func capitalize(day string) string {
