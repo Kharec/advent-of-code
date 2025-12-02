@@ -39,32 +39,49 @@ func PartOne(input []string) int {
 }
 
 func PartTwo(input []string) int {
-	sum := 0
+	totalSum := 0
 	for _, line := range input {
-		for newRange := range strings.SplitSeq(line, ",") {
-			parts := strings.Split(newRange, "-")
-			start, _ := strconv.Atoi(parts[0])
-			end, _ := strconv.Atoi(parts[1])
-			for id := start; id <= end; id++ {
-				sID := strconv.Itoa(id)
-				found := false
-				for patternLength := 1; patternLength <= len(sID)/2 && !found; patternLength++ {
-					if len(sID)%patternLength == 0 {
-						matches := true
-						for idx := 0; idx < len(sID)-patternLength; idx++ {
-							if sID[idx] != sID[idx+patternLength] {
-								matches = false
-								break
-							}
+		for rangeSpec := range strings.SplitSeq(line, ",") {
+			rangeStartStr, rangeEndStr, _ := strings.Cut(rangeSpec, "-")
+			rangeStart, _ := strconv.Atoi(rangeStartStr)
+			rangeEnd, _ := strconv.Atoi(rangeEndStr)
+
+			seenNumbers := make(map[int]bool)
+			maxDigits := len(rangeEndStr)
+
+			var generatePatterns func(string, int, int)
+			generatePatterns = func(currentPattern string, targetPatternLength, currentDepth int) {
+				if currentDepth == targetPatternLength {
+					repeated := currentPattern + currentPattern
+					for len(repeated) <= maxDigits {
+						number, err := strconv.Atoi(repeated)
+						if err != nil || number > rangeEnd {
+							break
 						}
-						if matches {
-							sum += id
-							found = true
+						if number >= rangeStart && !seenNumbers[number] {
+							totalSum += number
+							seenNumbers[number] = true
 						}
+						repeated += currentPattern
 					}
+					return
 				}
+
+				minDigit := 0
+				if currentDepth == 0 {
+					minDigit = 1
+				}
+
+				for digit := minDigit; digit <= 9; digit++ {
+					extendedPattern := currentPattern + strconv.Itoa(digit)
+					generatePatterns(extendedPattern, targetPatternLength, currentDepth+1)
+				}
+			}
+
+			for patternLength := 1; patternLength <= maxDigits/2; patternLength++ {
+				generatePatterns("", patternLength, 0)
 			}
 		}
 	}
-	return sum
+	return totalSum
 }
