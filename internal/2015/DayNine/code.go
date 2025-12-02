@@ -17,7 +17,7 @@ func ParseInput(filepath string) []string {
 	return strings.Split(string(content), "\n")
 }
 
-func PartOne(data []string) int {
+func buildDistanceMap(data []string) map[string]map[string]int {
 	distances := make(map[string]map[string]int)
 
 	for _, line := range data {
@@ -37,35 +37,50 @@ func PartOne(data []string) int {
 		distances[to][from] = distance
 	}
 
+	return distances
+}
+
+func getCities(distances map[string]map[string]int) []string {
 	cities := make([]string, 0, len(distances))
 	for city := range distances {
 		cities = append(cities, city)
 	}
+	return cities
+}
 
-	var generatePermutations func([]string) [][]string
-	generatePermutations = func(cities []string) [][]string {
-		if len(cities) == 0 {
-			return [][]string{{}}
-		}
-		var result [][]string
-		for idx, city := range cities {
-			remaining := make([]string, len(cities)-1)
-			copy(remaining[:idx], cities[:idx])
-			copy(remaining[idx:], cities[idx+1:])
-
-			for _, permutations := range generatePermutations(remaining) {
-				result = append(result, append([]string{city}, permutations...))
-			}
-		}
-		return result
+func generatePermutations(cities []string) [][]string {
+	if len(cities) == 0 {
+		return [][]string{{}}
 	}
+	var result [][]string
+	for idx, city := range cities {
+		remaining := make([]string, len(cities)-1)
+		copy(remaining[:idx], cities[:idx])
+		copy(remaining[idx:], cities[idx+1:])
+
+		for _, permutations := range generatePermutations(remaining) {
+			result = append(result, append([]string{city}, permutations...))
+		}
+	}
+	return result
+}
+
+func calculateRouteDistance(route []string, distances map[string]map[string]int) int {
+	total := 0
+	for idx := 0; idx < len(route)-1; idx++ {
+		total += distances[route[idx]][route[idx+1]]
+	}
+	return total
+}
+
+func PartOne(data []string) int {
+	distances := buildDistanceMap(data)
+	cities := getCities(distances)
+	permutations := generatePermutations(cities)
 
 	minimalDistance := int(^uint(0) >> 1)
-	for _, route := range generatePermutations(cities) {
-		total := 0
-		for idx := 0; idx < len(route)-1; idx++ {
-			total += distances[route[idx]][route[idx+1]]
-		}
+	for _, route := range permutations {
+		total := calculateRouteDistance(route, distances)
 		if total < minimalDistance {
 			minimalDistance = total
 		}
