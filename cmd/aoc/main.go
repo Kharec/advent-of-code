@@ -43,6 +43,7 @@ import (
 
 	// 2025
 	_ "advent-of-code/internal/2025/DayOne"
+	_ "advent-of-code/internal/2025/DayTwo"
 )
 
 func capitalize(day string) string {
