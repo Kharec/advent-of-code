@@ -39,5 +39,32 @@ func PartOne(input []string) int {
 }
 
 func PartTwo(input []string) int {
-	return 0
+	sum := 0
+	for _, line := range input {
+		for newRange := range strings.SplitSeq(line, ",") {
+			parts := strings.Split(newRange, "-")
+			start, _ := strconv.Atoi(parts[0])
+			end, _ := strconv.Atoi(parts[1])
+			for id := start; id <= end; id++ {
+				sID := strconv.Itoa(id)
+				found := false
+				for patternLength := 1; patternLength <= len(sID)/2 && !found; patternLength++ {
+					if len(sID)%patternLength == 0 {
+						matches := true
+						for idx := 0; idx < len(sID)-patternLength; idx++ {
+							if sID[idx] != sID[idx+patternLength] {
+								matches = false
+								break
+							}
+						}
+						if matches {
+							sum += id
+							found = true
+						}
+					}
+				}
+			}
+		}
+	}
+	return sum
 }
