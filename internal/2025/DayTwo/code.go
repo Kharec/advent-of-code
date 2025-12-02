@@ -12,24 +12,6 @@ func init() {
 	registry.Register("2025D2", ParseInput, PartOne, PartTwo)
 }
 
-func isInvalid(id int, exactTwo bool) bool {
-	sID := strconv.Itoa(id)
-	if exactTwo {
-		half := len(sID) / 2
-		return sID[:half] == sID[half:]
-	}
-	for patternLength := 1; patternLength <= len(sID)/2; patternLength++ {
-		repetitions := len(sID) / patternLength
-		if repetitions < 2 || len(sID)%patternLength != 0 {
-			continue
-		}
-		if strings.Repeat(sID[:patternLength], repetitions) == sID {
-			return true
-		}
-	}
-	return false
-}
-
 func ParseInput(filepath string) []string {
 	content, _ := os.ReadFile(filepath)
 	return strings.Split(strings.TrimSpace(string(content)), "\n")
@@ -43,8 +25,12 @@ func PartOne(input []string) int {
 			start, _ := strconv.Atoi(parts[0])
 			end, _ := strconv.Atoi(parts[1])
 			for id := start; id <= end; id++ {
-				if isInvalid(id, true) {
-					sum += id
+				sID := strconv.Itoa(id)
+				if len(sID)%2 == 0 {
+					half := len(sID) / 2
+					if sID[:half] == sID[half:] {
+						sum += id
+					}
 				}
 			}
 		}
