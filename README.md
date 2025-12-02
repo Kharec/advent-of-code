@@ -20,28 +20,29 @@ Ultimately, my goal is to complete all the years of Advent of Code here.
 ```
 ├── cmd/
 │   └── aoc/
-│       └── main.go                # CLI entry point that runs solutions
+│       └── main.go               # CLI entry point for running puzzles
 └── internal/
     ├── 2020/
+    │   ├── register.go           # Aggregates import for main.go
     │   ├── DayOne/
-    │   │   ├── code.go            # Go solution for Day 1 (2020)
-    │   │   └── code_test.go       # Unit tests for Day 1
-    │   └── ...
+    │   │   ├── code.go           # Day 1 solution for 2020
+    │   │   └── code_test.go      # Unit tests for Day 1 solution
+    │   └── ...                   # Other days for 2020
     ├── 2021/
-    │   └── ...                    # Additional years and days
+    │   └── ...                   # 2021 days code and tests
     ├── registry/
-    │   └── registry.go            # Central registry for day runners
+    │   └── registry.go           # Central map/registry for finding and running days
     └── data/
         ├── 2020/
         │   ├── DayOne/
-        │   │   └── input.txt      # Puzzle input for Day 1 (2020)
-        │   └── ...
-        └── ...
+        │   │   └── input.txt     # Puzzle input for Day 1 (2020)
+        │   └── ...               # Inputs for other days
+        └── ...                   # Inputs for other years
 ```
 
 Each day's solution is organized into its own folder, named according to the day number (e.g., `DayOne`, `DayTwo`). Inside each folder, you'll find a `code.go` file with the Go implementation of the solution and a `code_test.go` file containing corresponding tests. The input data for each puzzle is located in the `internal/data` directory, mirroring the code structure for easy access.
 
-To connect each solution to the CLI, the repository uses a central registry located in `internal/registry/registry.go`. This registry is essentially a map linking a day key (combining year and day number) to assign a "day runner" which is a struct that specifies the `ParseInput`, `PartOne` and `PartTwo` functions of the day's problem.
+Each year has its own `register.go` file to aggregate imports. To connect each solution to the CLI, the repository uses a central registry located in `internal/registry/registry.go`. This registry is essentially a map linking a day key (combining year and day number) to assign a "day runner" which is a struct that specifies the `ParseInput`, `PartOne` and `PartTwo` functions of the day's problem.
 
 When running a solution, the CLI (`cmd/aoc/main.go`) looks up the appropriate runner from the registry based on your command-line input, uses the parsing function to load the input data, and then runs the desired part (or both parts) using the registered solution functions.
 
