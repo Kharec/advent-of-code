@@ -90,5 +90,17 @@ func PartOne(data []string) int {
 }
 
 func PartTwo(data []string) int {
-	return 0
+	distances := buildDistanceMap(data)
+	cities := getCities(distances)
+	permutations := generatePermutations(cities)
+
+	maximalDistance := 0
+	for _, route := range permutations {
+		total := calculateRouteDistance(route, distances)
+		if total > maximalDistance {
+			maximalDistance = total
+		}
+	}
+
+	return maximalDistance
 }
