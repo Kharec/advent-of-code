@@ -43,5 +43,19 @@ func PartOne(data []string) int {
 }
 
 func PartTwo(data []string) int {
-	return 0
+	result := 0
+	for _, line := range data {
+		originalLength := len(line)
+		encodedLength := 2
+		for _, char := range line {
+			switch char {
+			case '\\', '"':
+				encodedLength += 2
+			default:
+				encodedLength++
+			}
+		}
+		result += encodedLength - originalLength
+	}
+	return result
 }
