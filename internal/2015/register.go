@@ -1,6 +1,7 @@
 package year2015
 
 import (
+	_ "advent-of-code/internal/2015/DayEight"
 	_ "advent-of-code/internal/2015/DayFive"
 	_ "advent-of-code/internal/2015/DayFour"
 	_ "advent-of-code/internal/2015/DayOne"
