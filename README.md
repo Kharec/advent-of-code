@@ -52,15 +52,15 @@ When running a solution, the CLI (`cmd/aoc/main.go`) looks up the appropriate ru
 make 2020D1
 ```
 
-This will create the following files:
+If the `ADVENTOFCODE_SESSION` environment variable is set with your Advent of Code session cookie, the input will be downloaded from the AOC website right into the corresponding `internal/data` directory, else it will create an empty `input.txt` file.
+
+Then, it will create the following files:
 
 ```bash
 internal/2020/DayOne/code.go
 internal/2020/DayOne/code_test.go
 internal/data/2020/DayOne/input.txt
 ```
-
-If the `ADVENTOFCODE_SESSION` environment variable is set with your Advent of Code session cookie, the input will be downloaded from the AOC website right into the corresponding `internal/data` directory, else it will create an empty `input.txt` file.
 
 ### Handling string answers
 
