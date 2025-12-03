@@ -59,7 +59,6 @@ Then, it will create the following files:
 ```bash
 internal/2020/DayOne/code.go
 internal/2020/DayOne/code_test.go
-internal/data/2020/DayOne/input.txt
 ```
 
 ### Handling string answers
