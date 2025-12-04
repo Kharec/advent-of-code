@@ -90,5 +90,8 @@ func PartOne(data string) int {
 }
 
 func PartTwo(data string) int {
+	firstPassword := findNextValidPassword(data)
+	secondPassword := findNextValidPassword(firstPassword)
+	println(secondPassword)
 	return 0
 }
