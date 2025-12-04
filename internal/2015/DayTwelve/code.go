@@ -1,11 +1,13 @@
 package daytwelve
 
 import (
-	"advent-of-code/internal/registry"
+	"encoding/json"
 	"os"
 	"regexp"
 	"strconv"
 	"strings"
+
+	"advent-of-code/internal/registry"
 )
 
 func init() {
@@ -31,5 +33,36 @@ func PartOne(data []string) int {
 }
 
 func PartTwo(data []string) int {
-	return 0
+	var sumNumbers func(any) int
+	sumNumbers = func(v any) int {
+		switch value := v.(type) {
+		case float64:
+			return int(value)
+		case []any:
+			sum := 0
+			for _, item := range value {
+				sum += sumNumbers(item)
+			}
+			return sum
+		case map[string]any:
+			sum := 0
+			for _, item := range value {
+				if str, ok := item.(string); ok && str == "red" {
+					return 0
+				}
+				sum += sumNumbers(item)
+			}
+			return sum
+		default:
+			return 0
+		}
+	}
+
+	sum := 0
+	for _, line := range data {
+		var value any
+		_ = json.Unmarshal([]byte(line), &value)
+		sum += sumNumbers(value)
+	}
+	return sum
 }
