@@ -27,3 +27,25 @@ func TestPartOne(t *testing.T) {
 		})
 	}
 }
+
+func TestPartTwo(t *testing.T) {
+	tests := []struct {
+		name     string
+		input    string
+		expected int
+	}{
+		{"[1,2,3]", "[1,2,3]", 6},
+		{"[1,{\"c\":\"red\",\"b\":2},3]", "[1,{\"c\":\"red\",\"b\":2},3]", 4},
+		{"{\"d\":\"red\",\"e\":[1,2,3,4],\"f\":5}", "{\"d\":\"red\",\"e\":[1,2,3,4],\"f\":5}", 0},
+		{"[1,\"red\",5]", "[1,\"red\",5]", 6},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			got := PartTwo([]string{tt.input})
+			if got != tt.expected {
+				t.Errorf("PartTwo() = %d, want %d", got, tt.expected)
+			}
+		})
+	}
+}
