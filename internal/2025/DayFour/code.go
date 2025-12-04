@@ -21,12 +21,12 @@ func ParseInput(filepath string) []string {
 }
 
 func PartOne(data []string) int {
-	rollPositions := make(map[position]bool)
+	isRoll := make(map[position]bool)
 
 	for row := range data {
 		for column := 0; column < len(data[row]); column++ {
 			if data[row][column] == '@' {
-				rollPositions[position{row, column}] = true
+				isRoll[position{row, column}] = true
 			}
 		}
 	}
@@ -43,11 +43,11 @@ func PartOne(data []string) int {
 		{1, 1},
 	}
 
-	for pos := range rollPositions {
+	for pos := range isRoll {
 		adjacentRolls := 0
 		for _, direction := range directions {
 			neighbor := position{pos.row + direction.row, pos.column + direction.column}
-			if rollPositions[neighbor] {
+			if isRoll[neighbor] {
 				adjacentRolls++
 			}
 		}
