@@ -15,7 +15,7 @@ func ParseInput(filepath string) string {
 	return string(content)
 }
 
-func PartOne(data string) int {
+func findNextValidPassword(data string) string {
 	bytes := []byte(data)
 
 	increment := func() {
@@ -80,7 +80,12 @@ func PartOne(data string) int {
 		increment()
 	}
 
-	println(string(bytes))
+	return string(bytes)
+}
+
+func PartOne(data string) int {
+	result := findNextValidPassword(data)
+	println(result)
 	return 0
 }
 
