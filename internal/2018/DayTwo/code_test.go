@@ -45,11 +45,11 @@ func TestPartTwo(t *testing.T) {
 
 	PartTwo(input)
 
-	w.Close()
+	_ = w.Close()
 	os.Stdout = oldStdout
 
 	var buffer bytes.Buffer
-	buffer.ReadFrom(r)
+	_, _ = buffer.ReadFrom(r)
 	got := strings.TrimSpace(buffer.String())
 
 	if got != expected {
