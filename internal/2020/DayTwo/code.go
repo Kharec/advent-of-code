@@ -14,11 +14,8 @@ func init() {
 func ParseInput(filepath string) []string {
 	content, _ := os.ReadFile(filepath)
 	lines := strings.Split(string(content), "\n")
-	var data []string
-	for _, line := range lines {
-		data = append(data, line)
-	}
-	return data
+	data := make([]string, 0, len(lines))
+	return append(data, lines...)
 }
 
 func PartOne(data []string) int {
