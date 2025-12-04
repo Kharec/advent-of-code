@@ -91,7 +91,7 @@ func PartTwo(data []string) int {
 			return false
 		}
 		for _, c := range value[1:] {
-			if !((c >= '0' && c <= '9') || (c >= 'a' && c <= 'f')) {
+			if (c < '0' || c > '9') && (c < 'a' || c > 'f') {
 				return false
 			}
 		}
