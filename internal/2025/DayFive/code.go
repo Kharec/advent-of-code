@@ -75,5 +75,51 @@ func PartOne(input []string) int {
 }
 
 func PartTwo(input []string) int {
-	return 0
+	var freshRanges []freshRange
+
+	for _, line := range input {
+		if line == "" {
+			break
+		}
+
+		startStr, endStr, _ := strings.Cut(line, "-")
+		start, _ := strconv.Atoi(startStr)
+		end, _ := strconv.Atoi(endStr)
+		freshRanges = append(freshRanges, freshRange{start: start, end: end})
+	}
+
+	slices.SortFunc(freshRanges, func(a, b freshRange) int {
+		switch {
+		case a.start < b.start:
+			return -1
+		case a.start > b.start:
+			return 1
+		default:
+			return 0
+		}
+	})
+
+	var mergedRanges []freshRange
+	for _, r := range freshRanges {
+		if len(mergedRanges) == 0 {
+			mergedRanges = append(mergedRanges, r)
+			continue
+		}
+
+		lastRange := &mergedRanges[len(mergedRanges)-1]
+		if r.start <= lastRange.end+1 {
+			if r.end > lastRange.end {
+				lastRange.end = r.end
+			}
+		} else {
+			mergedRanges = append(mergedRanges, r)
+		}
+	}
+
+	totalFreshIDs := 0
+	for _, r := range mergedRanges {
+		totalFreshIDs += r.end - r.start + 1
+	}
+
+	return totalFreshIDs
 }
