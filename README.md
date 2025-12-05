@@ -13,7 +13,7 @@ Ultimately, my goal is to complete all the years of Advent of Code here.
 ## Requirements
 
 - Go 1.25
-- Puzzle input
+- Puzzle input (or your session cookie to have it downloaded automatically)
 
 ## Repository Structure
 
