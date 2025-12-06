@@ -14,9 +14,9 @@ func init() {
 	registry.Register("2021D4", ParseInput, PartOne, PartTwo)
 }
 
-func ParseInput(filepath string) string {
+func ParseInput(filepath string) []string {
 	content, _ := os.ReadFile(filepath)
-	return string(content)
+	return strings.Split(strings.TrimSpace(string(content)), "\n")
 }
 
 type board struct {
@@ -113,8 +113,7 @@ func parseNumbers(line string) []int {
 	return numbers
 }
 
-func PartOne(input string) int {
-	lines := strings.Split(strings.TrimSpace(input), "\n")
+func PartOne(lines []string) int {
 	numbers := parseNumbers(lines[0])
 	boards := parseBoards(lines[1:])
 
@@ -129,6 +128,6 @@ func PartOne(input string) int {
 	return 0
 }
 
-func PartTwo(input string) int {
+func PartTwo(lines []string) int {
 	return 0
 }
