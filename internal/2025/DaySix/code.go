@@ -73,6 +73,17 @@ func extractNumbers(transposed []string, startColumn, endColumn, operationRow in
 	return numbers
 }
 
+func extractNumberFromColumn(column string, operationRow int) (int, bool) {
+	numberStr := strings.Map(func(r rune) rune {
+		if r >= '0' && r <= '9' {
+			return r
+		}
+		return -1
+	}, column[:min(operationRow, len(column))])
+	number, _ := strconv.Atoi(numberStr)
+	return number, true
+}
+
 func extractOperation(segment string) byte {
 	if idx := strings.IndexAny(segment, "+*"); idx != -1 {
 		return segment[idx]
@@ -126,5 +137,39 @@ func PartOne(input []string) int {
 }
 
 func PartTwo(input []string) int {
-	return 0
+	operationRow := len(input) - 1
+	transposed := transpose(input)
+
+	total := 0
+	column := len(transposed) - 1
+
+	for column >= 0 {
+		if isSpaceColumn(transposed[column]) {
+			column--
+			continue
+		}
+
+		endColumn := column
+		for column >= 0 && !isSpaceColumn(transposed[column]) {
+			column--
+		}
+		startColumn := column + 1
+
+		numbers := make([]int, 0)
+		for column := startColumn; column <= endColumn && column < len(transposed); column++ {
+			if number, ok := extractNumberFromColumn(transposed[column], operationRow); ok {
+				numbers = append(numbers, number)
+			}
+		}
+
+		operationRowStr := extractRowFromColumns(transposed, operationRow, startColumn, endColumn)
+		operation := extractOperation(operationRowStr)
+
+		if len(numbers) > 0 && operation != 0 {
+			result := applyOperation(numbers, operation)
+			total += result
+		}
+	}
+
+	return total
 }
