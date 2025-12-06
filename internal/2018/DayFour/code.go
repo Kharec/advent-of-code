@@ -11,7 +11,10 @@ import (
 	"advent-of-code/internal/registry"
 )
 
-var guardRegex = regexp.MustCompile(`Guard #(\d+) begins shift`)
+var (
+	guardRegex = regexp.MustCompile(`Guard #(\d+) begins shift`)
+	timeLayout = "2006-01-02 15:04"
+)
 
 func init() {
 	registry.Register("2018D4", ParseInput, PartOne, PartTwo)
@@ -30,7 +33,6 @@ type record struct {
 
 func PartOne(data []string) int {
 	records := make([]record, 0, len(data))
-	timeLayout := "2006-01-02 15:04"
 
 	for _, line := range data {
 		timeStr, action, _ := strings.Cut(line[1:], "] ")
@@ -84,5 +86,48 @@ func PartOne(data []string) int {
 }
 
 func PartTwo(data []string) int {
-	return 0
+	records := make([]record, 0, len(data))
+
+	for _, line := range data {
+		timeStr, action, _ := strings.Cut(line[1:], "] ")
+		timestamp, _ := time.Parse(timeLayout, timeStr)
+		guardID := -1
+		if matches := guardRegex.FindStringSubmatch(action); matches != nil {
+			guardID, _ = strconv.Atoi(matches[1])
+		}
+		records = append(records, record{timestamp, action, guardID})
+	}
+
+	slices.SortFunc(records, func(a, b record) int {
+		return a.timestamp.Compare(b.timestamp)
+	})
+
+	guardMinuteCount := make(map[int]map[int]int)
+	currentGuard := -1
+
+	for idx := range records {
+		if records[idx].guardID != -1 {
+			currentGuard = records[idx].guardID
+			if guardMinuteCount[currentGuard] == nil {
+				guardMinuteCount[currentGuard] = make(map[int]int)
+			}
+		}
+		if records[idx].action == "falls asleep" && idx+1 < len(records) {
+			start, end := records[idx].timestamp.Minute(), records[idx+1].timestamp.Minute()
+			for m := start; m < end; m++ {
+				guardMinuteCount[currentGuard][m]++
+			}
+		}
+	}
+
+	maxGuard, maxMinute, maxCount := -1, -1, 0
+	for guardID, minuteCounts := range guardMinuteCount {
+		for minute, count := range minuteCounts {
+			if count > maxCount {
+				maxGuard, maxMinute, maxCount = guardID, minute, count
+			}
+		}
+	}
+
+	return maxGuard * maxMinute
 }
