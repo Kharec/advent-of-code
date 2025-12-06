@@ -113,9 +113,9 @@ func parseNumbers(line string) []int {
 	return numbers
 }
 
-func PartOne(lines []string) int {
-	numbers := parseNumbers(lines[0])
-	boards := parseBoards(lines[1:])
+func PartOne(data []string) int {
+	numbers := parseNumbers(data[0])
+	boards := parseBoards(data[1:])
 
 	for _, number := range numbers {
 		for idx := range boards {
@@ -128,6 +128,28 @@ func PartOne(lines []string) int {
 	return 0
 }
 
-func PartTwo(lines []string) int {
+func PartTwo(data []string) int {
+	numbers := parseNumbers(data[0])
+	boards := parseBoards(data[1:])
+
+	wonCount := 0
+	totalBoards := len(boards)
+	var lastWinner *board
+	var lastNumber int
+
+	for _, number := range numbers {
+		for idx := range boards {
+			if boards[idx].mark(number) {
+				wonCount++
+				lastWinner = &boards[idx]
+				lastNumber = number
+
+				if wonCount == totalBoards {
+					return lastWinner.sumUnmarked() * lastNumber
+				}
+			}
+		}
+	}
+
 	return 0
 }
