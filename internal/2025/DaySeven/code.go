@@ -1,9 +1,10 @@
 package dayseven
 
 import (
-	"advent-of-code/internal/registry"
 	"os"
 	"strings"
+
+	"advent-of-code/internal/registry"
 )
 
 func init() {
