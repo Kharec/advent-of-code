@@ -36,3 +36,12 @@ func TestPartOne(t *testing.T) {
 		})
 	}
 }
+
+func TestPartTwo(t *testing.T) {
+	input := []string{"R8", "R4", "R4", "R8"}
+	expected := 4
+	got := PartTwo(input)
+	if got != expected {
+		t.Errorf("PartTwo() = %d, want %d", got, 4)
+	}
+}
