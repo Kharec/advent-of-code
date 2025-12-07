@@ -31,7 +31,6 @@ func findStart(input []string) (int, int) {
 
 func PartOne(input []string) int {
 	rows, columns := len(input), len(input[0])
-
 	startRow, startColumn := findStart(input)
 
 	queue := []Position{{startRow, startColumn}}
@@ -68,6 +67,39 @@ func PartOne(input []string) int {
 	return splits
 }
 
-func PartTwo(data []string) int {
-	return 0
+func PartTwo(input []string) int {
+	rows, columns := len(input), len(input[0])
+	startRow, startColumn := findStart(input)
+
+	cache := make(map[Position]int)
+
+	var countTimelines func(row, column int) int
+	countTimelines = func(row, column int) int {
+		position := Position{row, column}
+		if count, exists := cache[position]; exists {
+			return count
+		}
+
+		r, c := row+1, column
+		for r < rows && input[r][c] != '^' {
+			r++
+		}
+
+		if r == rows {
+			return 1
+		}
+
+		total := 0
+		if c > 0 {
+			total += countTimelines(r, c-1)
+		}
+		if c < columns-1 {
+			total += countTimelines(r, c+1)
+		}
+
+		cache[position] = total
+		return total
+	}
+
+	return countTimelines(startRow, startColumn)
 }
