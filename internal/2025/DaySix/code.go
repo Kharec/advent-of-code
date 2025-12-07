@@ -14,8 +14,7 @@ func init() {
 
 func ParseInput(filepath string) []string {
 	content, _ := os.ReadFile(filepath)
-	lines := strings.Split(strings.TrimRight(string(content), "\n"), "\n")
-	return lines
+	return strings.Split(strings.TrimRight(string(content), "\n"), "\n")
 }
 
 func transpose(lines []string) []string {
