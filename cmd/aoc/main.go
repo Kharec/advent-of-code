@@ -10,6 +10,7 @@ import (
 	"advent-of-code/internal/registry"
 
 	_ "advent-of-code/internal/2015"
+	_ "advent-of-code/internal/2016"
 	_ "advent-of-code/internal/2018"
 	_ "advent-of-code/internal/2020"
 	_ "advent-of-code/internal/2021"
