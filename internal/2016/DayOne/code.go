@@ -12,6 +12,10 @@ func init() {
 	registry.Register("2016D1", ParseInput, PartOne, PartTwo)
 }
 
+type position struct {
+	x, y int
+}
+
 func abs(n int) int {
 	if n < 0 {
 		return -n
@@ -52,5 +56,36 @@ func PartOne(data []string) int {
 }
 
 func PartTwo(data []string) int {
+	x, y := 0, 0
+	directions := [][]int{{0, 1}, {1, 0}, {0, -1}, {-1, 0}}
+	currentDirection := 0
+	visited := make(map[position]bool)
+	visited[position{0, 0}] = true
+
+	for _, instruction := range data {
+		turn := instruction[0]
+		distance, _ := strconv.Atoi(instruction[1:])
+
+		switch turn {
+		case 'R':
+			currentDirection = (currentDirection + 1) % 4
+		case 'L':
+			currentDirection = (currentDirection + 3) % 4
+		}
+
+		directionX := directions[currentDirection][0]
+		directionY := directions[currentDirection][1]
+
+		for range distance {
+			x += directionX
+			y += directionY
+			pos := position{x, y}
+			if visited[pos] {
+				return abs(x) + abs(y)
+			}
+			visited[pos] = true
+		}
+	}
+
 	return 0
 }
