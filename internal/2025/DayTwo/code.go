@@ -17,9 +17,9 @@ func ParseInput(filepath string) []string {
 	return strings.Split(strings.TrimSpace(string(content)), "\n")
 }
 
-func PartOne(input []string) int {
+func PartOne(data []string) int {
 	sum := 0
-	for _, line := range input {
+	for _, line := range data {
 		for newRange := range strings.SplitSeq(line, ",") {
 			parts := strings.Split(newRange, "-")
 			start, _ := strconv.Atoi(parts[0])
@@ -38,9 +38,9 @@ func PartOne(input []string) int {
 	return sum
 }
 
-func PartTwo(input []string) int {
+func PartTwo(data []string) int {
 	totalSum := 0
-	for _, line := range input {
+	for _, line := range data {
 		for rangeSpec := range strings.SplitSeq(line, ",") {
 			rangeStartStr, rangeEndStr, _ := strings.Cut(rangeSpec, "-")
 			rangeStart, _ := strconv.Atoi(rangeStartStr)

@@ -24,12 +24,12 @@ func ParseInput(filepath string) []string {
 	return strings.Split(string(content), "\n")
 }
 
-func PartOne(input []string) int {
+func PartOne(data []string) int {
 	var freshRanges []freshRange
 	var ingredientIDs []int
 	separatorFound := false
 
-	for _, line := range input {
+	for _, line := range data {
 		if line == "" {
 			separatorFound = true
 			continue
@@ -74,10 +74,10 @@ func PartOne(input []string) int {
 	return freshCount
 }
 
-func PartTwo(input []string) int {
+func PartTwo(data []string) int {
 	var freshRanges []freshRange
 
-	for _, line := range input {
+	for _, line := range data {
 		if line == "" {
 			break
 		}

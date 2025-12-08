@@ -104,9 +104,9 @@ func applyOperation(numbers []int, operation byte) int {
 	return result
 }
 
-func PartOne(input []string) int {
-	operationRow := len(input) - 1
-	transposed := transpose(input)
+func PartOne(data []string) int {
+	operationRow := len(data) - 1
+	transposed := transpose(data)
 
 	total := 0
 	column := 0
@@ -135,9 +135,9 @@ func PartOne(input []string) int {
 	return total
 }
 
-func PartTwo(input []string) int {
-	operationRow := len(input) - 1
-	transposed := transpose(input)
+func PartTwo(data []string) int {
+	operationRow := len(data) - 1
+	transposed := transpose(data)
 
 	total := 0
 	column := len(transposed) - 1

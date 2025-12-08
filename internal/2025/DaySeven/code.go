@@ -21,18 +21,18 @@ func ParseInput(filepath string) []string {
 	return strings.Split(string(content), "\n")
 }
 
-func findStart(input []string) (int, int) {
-	for row := range input {
-		if column := strings.IndexByte(input[row], 'S'); column != -1 {
+func findStart(data []string) (int, int) {
+	for row := range data {
+		if column := strings.IndexByte(data[row], 'S'); column != -1 {
 			return row, column
 		}
 	}
 	return -1, -1
 }
 
-func PartOne(input []string) int {
-	rows, columns := len(input), len(input[0])
-	startRow, startColumn := findStart(input)
+func PartOne(data []string) int {
+	rows, columns := len(data), len(data[0])
+	startRow, startColumn := findStart(data)
 
 	queue := []Position{{startRow, startColumn}}
 	activated := make(map[Position]bool)
@@ -45,7 +45,7 @@ func PartOne(input []string) int {
 		row := current.row + 1
 		column := current.column
 
-		for row < rows && input[row][column] != '^' {
+		for row < rows && data[row][column] != '^' {
 			row++
 		}
 
