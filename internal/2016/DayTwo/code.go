@@ -2,6 +2,7 @@ package daytwo
 
 import (
 	"advent-of-code/internal/registry"
+	"fmt"
 	"os"
 	"strings"
 )
@@ -52,6 +53,49 @@ func PartOne(instructions []string) int {
 	return code
 }
 
-func PartTwo(data []string) int {
+func PartTwo(instructions []string) int {
+	row, column := 2, 0
+
+	keypad := [5][5]int{
+		{0, 0, 1, 0, 0},
+		{0, 2, 3, 4, 0},
+		{5, 6, 7, 8, 9},
+		{0, 10, 11, 12, 0},
+		{0, 0, 13, 0, 0},
+	}
+
+	isValidPosition := func(r, c int) bool {
+		return r >= 0 && r < 5 && c >= 0 && c < 5 && keypad[r][c] != 0
+	}
+
+	var codeBuilder strings.Builder
+
+	for _, line := range instructions {
+		for _, move := range line {
+			newRow, newColumn := row, column
+			switch move {
+			case 'U':
+				newRow--
+			case 'D':
+				newRow++
+			case 'L':
+				newColumn--
+			case 'R':
+				newColumn++
+			}
+			if isValidPosition(newRow, newColumn) {
+				row, column = newRow, newColumn
+			}
+		}
+		value := keypad[row][column]
+		if value < 10 {
+			codeBuilder.WriteByte(byte('0' + value))
+		} else {
+			codeBuilder.WriteByte(byte('A' + value - 10))
+		}
+	}
+
+	code := codeBuilder.String()
+	fmt.Println(code)
 	return 0
 }
