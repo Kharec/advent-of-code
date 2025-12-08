@@ -110,5 +110,32 @@ func PartOne(data []string) int {
 }
 
 func PartTwo(data []string) int {
-	return 0
+	happinessMap := buildHappinessMap(data)
+	allPeople := getAllPeople(happinessMap)
+
+	me := "Me"
+	happinessMap[me] = make(map[string]int)
+	for _, person := range allPeople {
+		happinessMap[person][me] = 0
+		happinessMap[me][person] = 0
+	}
+
+	allPeople = append(allPeople, me)
+	fixedPerson := allPeople[0]
+	remainingPeople := allPeople[1:]
+	permutations := generatePermutations(remainingPeople)
+
+	maxTotalChange := math.MinInt
+	arrangement := make([]string, len(allPeople))
+	arrangement[0] = fixedPerson
+
+	for _, permutation := range permutations {
+		copy(arrangement[1:], permutation)
+		totalHappiness := calculateTotalHappiness(arrangement, happinessMap)
+		if totalHappiness > maxTotalChange {
+			maxTotalChange = totalHappiness
+		}
+	}
+
+	return maxTotalChange
 }
