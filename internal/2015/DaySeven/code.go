@@ -64,14 +64,14 @@ func evaluateWire(wire string, instructions map[string]string) uint16 {
 	return evaluate(wire)
 }
 
-func PartOne(instructions map[string]string) int {
-	return int(evaluateWire("a", instructions))
+func PartOne(data map[string]string) int {
+	return int(evaluateWire("a", data))
 }
 
-func PartTwo(instructions map[string]string) int {
-	signalA := PartOne(instructions)
-	instructionsCopy := make(map[string]string, len(instructions))
-	maps.Copy(instructionsCopy, instructions)
+func PartTwo(data map[string]string) int {
+	signalA := PartOne(data)
+	instructionsCopy := make(map[string]string, len(data))
+	maps.Copy(instructionsCopy, data)
 	instructionsCopy["b"] = strconv.Itoa(signalA)
 	return int(evaluateWire("a", instructionsCopy))
 }
