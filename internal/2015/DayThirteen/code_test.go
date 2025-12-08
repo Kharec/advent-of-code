@@ -24,3 +24,5 @@ func TestPartOne(t *testing.T) {
 		t.Errorf("PartOne() = %d, want %d", got, expected)
 	}
 }
+
+// no test for part two
