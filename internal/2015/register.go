@@ -10,6 +10,7 @@ import (
 	_ "advent-of-code/internal/2015/DaySeven"
 	_ "advent-of-code/internal/2015/DaySix"
 	_ "advent-of-code/internal/2015/DayTen"
+	_ "advent-of-code/internal/2015/DayThirteen"
 	_ "advent-of-code/internal/2015/DayThree"
 	_ "advent-of-code/internal/2015/DayTwelve"
 	_ "advent-of-code/internal/2015/DayTwo"
