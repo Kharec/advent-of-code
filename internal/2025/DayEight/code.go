@@ -60,26 +60,21 @@ func (uf *UnionFind) Find(junctionBox int) int {
 	return uf.parent[junctionBox]
 }
 
-func (uf *UnionFind) Union(junctionBox1, junctionBox2 int) bool {
+func (uf *UnionFind) Union(junctionBox1, junctionBox2 int) (bool, int) {
 	root1 := uf.Find(junctionBox1)
 	root2 := uf.Find(junctionBox2)
 	if root1 == root2 {
-		return false
+		return false, root1
 	}
 	if uf.size[root1] < uf.size[root2] {
 		root1, root2 = root2, root1
 	}
 	uf.parent[root2] = root1
 	uf.size[root1] += uf.size[root2]
-	return true
+	return true, root1
 }
 
-func ParseInput(filepath string) []string {
-	content, _ := os.ReadFile(filepath)
-	return strings.Split(string(content), "\n")
-}
-
-func PartOne(data []string) int {
+func parseJunctionBoxes(data []string) []JunctionBox {
 	var junctionBoxes []JunctionBox
 	for _, line := range data {
 		parts := strings.Split(line, ",")
@@ -88,14 +83,38 @@ func PartOne(data []string) int {
 		z, _ := strconv.Atoi(parts[2])
 		junctionBoxes = append(junctionBoxes, JunctionBox{X: x, Y: y, Z: z})
 	}
+	return junctionBoxes
+}
 
+func generateAllConnections(junctionBoxes []JunctionBox) []Connection {
 	junctionBoxCount := len(junctionBoxes)
-	targetPairs := 1000
-	if junctionBoxCount <= 20 {
-		targetPairs = 10
+	connections := make([]Connection, 0, junctionBoxCount*(junctionBoxCount-1)/2)
+
+	for i := range junctionBoxCount {
+		for j := i + 1; j < junctionBoxCount; j++ {
+			dx := junctionBoxes[i].X - junctionBoxes[j].X
+			dy := junctionBoxes[i].Y - junctionBoxes[j].Y
+			dz := junctionBoxes[i].Z - junctionBoxes[j].Z
+			squaredDistance := dx*dx + dy*dy + dz*dz
+
+			connections = append(connections, Connection{
+				firstJunctionBox:  i,
+				secondJunctionBox: j,
+				squaredDistance:   squaredDistance,
+			})
+		}
 	}
 
-	connectionHeap := make(ConnectionHeap, 0, targetPairs)
+	slices.SortFunc(connections, func(a, b Connection) int {
+		return cmp.Compare(a.squaredDistance, b.squaredDistance)
+	})
+
+	return connections
+}
+
+func findKSmallestConnections(junctionBoxes []JunctionBox, k int) []Connection {
+	junctionBoxCount := len(junctionBoxes)
+	connectionHeap := make(ConnectionHeap, 0, k)
 	heap.Init(&connectionHeap)
 
 	for i := range junctionBoxCount {
@@ -111,7 +130,7 @@ func PartOne(data []string) int {
 				squaredDistance:   squaredDistance,
 			}
 
-			if len(connectionHeap) < targetPairs {
+			if len(connectionHeap) < k {
 				heap.Push(&connectionHeap, connection)
 			} else if connection.squaredDistance < connectionHeap[0].squaredDistance {
 				heap.Pop(&connectionHeap)
@@ -129,13 +148,32 @@ func PartOne(data []string) int {
 		return cmp.Compare(a.squaredDistance, b.squaredDistance)
 	})
 
+	return connections
+}
+
+func ParseInput(filepath string) []string {
+	content, _ := os.ReadFile(filepath)
+	return strings.Split(string(content), "\n")
+}
+
+func PartOne(data []string) int {
+	junctionBoxes := parseJunctionBoxes(data)
+	junctionBoxCount := len(junctionBoxes)
+
+	targetPairs := 1000
+	if junctionBoxCount <= 20 {
+		targetPairs = 10
+	}
+
+	connections := findKSmallestConnections(junctionBoxes, targetPairs)
+
 	uf := NewUnionFind(junctionBoxCount)
 	for _, connection := range connections {
 		uf.Union(connection.firstJunctionBox, connection.secondJunctionBox)
 	}
 
 	circuitSizes := make(map[int]int)
-	for idx := 0; idx < len(junctionBoxes); idx++ {
+	for idx := range junctionBoxes {
 		root := uf.Find(idx)
 		circuitSizes[root] = uf.size[root]
 	}
@@ -152,5 +190,21 @@ func PartOne(data []string) int {
 }
 
 func PartTwo(data []string) int {
-	return 0
+	junctionBoxes := parseJunctionBoxes(data)
+	connections := generateAllConnections(junctionBoxes)
+
+	uf := NewUnionFind(len(junctionBoxes))
+	var lastConnection Connection
+
+	for _, connection := range connections {
+		merged, root := uf.Union(connection.firstJunctionBox, connection.secondJunctionBox)
+		if merged {
+			lastConnection = connection
+			if uf.size[root] == len(junctionBoxes) {
+				break
+			}
+		}
+	}
+
+	return junctionBoxes[lastConnection.firstJunctionBox].X * junctionBoxes[lastConnection.secondJunctionBox].X
 }
