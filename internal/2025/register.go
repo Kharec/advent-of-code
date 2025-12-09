@@ -4,6 +4,7 @@ import (
 	_ "advent-of-code/internal/2025/DayEight"
 	_ "advent-of-code/internal/2025/DayFive"
 	_ "advent-of-code/internal/2025/DayFour"
+	_ "advent-of-code/internal/2025/DayNine"
 	_ "advent-of-code/internal/2025/DayOne"
 	_ "advent-of-code/internal/2025/DaySeven"
 	_ "advent-of-code/internal/2025/DaySix"
