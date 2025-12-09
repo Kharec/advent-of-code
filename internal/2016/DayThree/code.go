@@ -36,5 +36,14 @@ func PartOne(data [][3]int) int {
 }
 
 func PartTwo(data [][3]int) int {
-	return 0
+	count := 0
+	for idx := 0; idx < len(data)-2; idx += 3 {
+		for column := range 3 {
+			a, b, c := data[idx][column], data[idx+1][column], data[idx+2][column]
+			if a+b > c && a+c > b && b+c > a {
+				count++
+			}
+		}
+	}
+	return count
 }
