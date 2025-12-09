@@ -62,12 +62,33 @@ func isValidRoom(encryptedName string, expectedChecksum string) bool {
 	return true
 }
 
-var roomPattern = regexp.MustCompile(`^(.+)-(\d+)\[([a-z]{5})\]$`)
+func decryptRoomName(encryptedName string, sectorID int) string {
+	result := strings.Builder{}
+	result.Grow(len(encryptedName))
+	shift := sectorID % 26
+	for _, char := range encryptedName {
+		if char == '-' {
+			result.WriteByte(' ')
+		} else if char >= 'a' && char <= 'z' {
+			shifted := ((int(char-'a') + shift) % 26) + 'a'
+			result.WriteByte(byte(shifted))
+		}
+	}
+	return result.String()
+}
+
+var roomPattern = regexp.MustCompile(`^(.+)-(\d+)(?:\[([a-z]{5})\])?$`)
 
 func PartOne(data []string) int {
 	sum := 0
 	for _, line := range data {
+		if line == "" {
+			continue
+		}
 		matches := roomPattern.FindStringSubmatch(line)
+		if len(matches) < 4 || matches[3] == "" {
+			continue
+		}
 		encryptedName := matches[1]
 		sectorIdentifier, _ := strconv.Atoi(matches[2])
 		actualChecksum := matches[3]
@@ -79,5 +100,20 @@ func PartOne(data []string) int {
 }
 
 func PartTwo(data []string) int {
+	for _, line := range data {
+		matches := roomPattern.FindStringSubmatch(line)
+		encryptedName := matches[1]
+		sectorIdentifier, _ := strconv.Atoi(matches[2])
+		checksum := matches[3]
+
+		if !isValidRoom(encryptedName, checksum) {
+			continue
+		}
+
+		decrypted := decryptRoomName(encryptedName, sectorIdentifier)
+		if strings.Contains(decrypted, "northpole") {
+			return sectorIdentifier
+		}
+	}
 	return 0
 }
