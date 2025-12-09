@@ -48,8 +48,7 @@ func PartOne(data []string) int {
 			distanceY := abs(points[i].y - points[j].y)
 
 			if distanceX > 0 && distanceY > 0 {
-				area := (distanceX + 1) * (distanceY + 1)
-				if area > maxArea {
+				if area := (distanceX + 1) * (distanceY + 1); area > maxArea {
 					maxArea = area
 				}
 			}
