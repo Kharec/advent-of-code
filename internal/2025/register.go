@@ -8,6 +8,7 @@ import (
 	_ "advent-of-code/internal/2025/DayOne"
 	_ "advent-of-code/internal/2025/DaySeven"
 	_ "advent-of-code/internal/2025/DaySix"
+	_ "advent-of-code/internal/2025/DayTen"
 	_ "advent-of-code/internal/2025/DayThree"
 	_ "advent-of-code/internal/2025/DayTwo"
 )
