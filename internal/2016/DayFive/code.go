@@ -19,15 +19,16 @@ func ParseInput(filepath string) string {
 
 func PartOne(data string) int {
 	doorIDBytes := []byte(data)
+	doorIDLen := len(doorIDBytes)
+	input := make([]byte, doorIDLen, doorIDLen+20)
+	copy(input, doorIDBytes)
 	password := make([]byte, 0, 8)
 	index := 0
 	hexChars := "0123456789abcdef"
-	var buffer []byte
 
 	for len(password) < 8 {
-		buffer = strconv.AppendInt(buffer[:0], int64(index), 10)
-		input := append(doorIDBytes, buffer...)
-		hash := md5.Sum(input)
+		indexBytes := strconv.AppendInt(input[:doorIDLen], int64(index), 10)
+		hash := md5.Sum(indexBytes)
 
 		if hash[0] == 0 && hash[1] == 0 && hash[2] < 16 {
 			char := hexChars[hash[2]&0x0F]
@@ -41,5 +42,32 @@ func PartOne(data string) int {
 }
 
 func PartTwo(data string) int {
+	doorIDBytes := []byte(data)
+	doorIDLen := len(doorIDBytes)
+	input := make([]byte, doorIDLen, doorIDLen+20)
+	copy(input, doorIDBytes)
+	password := make([]byte, 8)
+	filled := make([]bool, 8)
+	filledCount := 0
+	index := 0
+	hexChars := "0123456789abcdef"
+
+	for filledCount < 8 {
+		indexBytes := strconv.AppendInt(input[:doorIDLen], int64(index), 10)
+		hash := md5.Sum(indexBytes)
+
+		if hash[0] == 0 && hash[1] == 0 && hash[2] < 16 {
+			position := int(hash[2] & 0x0F)
+			if position < 8 && !filled[position] {
+				char := hexChars[hash[3]>>4]
+				password[position] = char
+				filled[position] = true
+				filledCount++
+			}
+		}
+		index++
+	}
+
+	fmt.Println(string(password))
 	return 0
 }
