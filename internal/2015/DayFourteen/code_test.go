@@ -14,3 +14,11 @@ func TestPartOne(t *testing.T) {
 		t.Errorf("calculateMaxDistance(testInput, 1000) = %d, want %d", got, expected)
 	}
 }
+
+func TestPartTwo(t *testing.T) {
+	expected := 689
+	got := calculateMaxPoints(testInput, 1000)
+	if got != expected {
+		t.Errorf("calculateMaxPoints(testInput, 1000) = %d, want %d", got, expected)
+	}
+}
