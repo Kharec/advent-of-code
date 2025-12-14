@@ -12,13 +12,6 @@ func init() {
 	registry.Register("2015D14", ParseInput, PartOne, PartTwo)
 }
 
-type Reindeer struct {
-	Speed     int
-	FlyTime   int
-	RestTime  int
-	CycleTime int
-}
-
 func ParseInput(filepath string) []string {
 	content, _ := os.ReadFile(filepath)
 	return strings.Split(string(content), "\n")
@@ -30,21 +23,17 @@ func calculateMaxDistance(data []string, time int) int {
 
 	for _, line := range data {
 		matches := pattern.FindStringSubmatch(line)
-		var reindeer Reindeer
-		reindeer.Speed, _ = strconv.Atoi(matches[1])
-		reindeer.FlyTime, _ = strconv.Atoi(matches[2])
-		reindeer.RestTime, _ = strconv.Atoi(matches[3])
-		reindeer.CycleTime = reindeer.FlyTime + reindeer.RestTime
 
-		fullCycles := time / reindeer.CycleTime
-		distance := fullCycles * reindeer.Speed * reindeer.FlyTime
+		speed, _ := strconv.Atoi(matches[1])
+		flyTime, _ := strconv.Atoi(matches[2])
+		restTime, _ := strconv.Atoi(matches[3])
+		cycleTime := flyTime + restTime
 
-		remainingTime := time % reindeer.CycleTime
-		if remainingTime > reindeer.FlyTime {
-			distance += reindeer.Speed * reindeer.FlyTime
-		} else {
-			distance += reindeer.Speed * remainingTime
-		}
+		fullCycles := time / cycleTime
+		distance := fullCycles * speed * flyTime
+
+		remainingTime := time % cycleTime
+		distance += speed * min(remainingTime, flyTime)
 
 		if distance > maxDistance {
 			maxDistance = distance
