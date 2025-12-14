@@ -5,6 +5,7 @@ import (
 	_ "advent-of-code/internal/2015/DayEleven"
 	_ "advent-of-code/internal/2015/DayFive"
 	_ "advent-of-code/internal/2015/DayFour"
+	_ "advent-of-code/internal/2015/DayFourteen"
 	_ "advent-of-code/internal/2015/DayNine"
 	_ "advent-of-code/internal/2015/DayOne"
 	_ "advent-of-code/internal/2015/DaySeven"
