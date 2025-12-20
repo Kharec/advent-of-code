@@ -15,7 +15,7 @@ func ParseInput(filepath string) string {
 	return string(content)
 }
 
-func PartOne(data string) int {
+func reactPolymer(data string) int {
 	stack := []rune{}
 
 	for _, char := range data {
@@ -34,6 +34,10 @@ func PartOne(data string) int {
 	}
 
 	return len(stack)
+}
+
+func PartOne(data string) int {
+	return reactPolymer(data)
 }
 
 func PartTwo(data string) int {
