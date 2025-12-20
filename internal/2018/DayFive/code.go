@@ -41,5 +41,24 @@ func PartOne(data string) int {
 }
 
 func PartTwo(data string) int {
-	return 0
+	unitTypes := make(map[rune]bool)
+	for _, char := range data {
+		unitTypes[unicode.ToLower(char)] = true
+	}
+
+	shortestPolymerLength := len(data)
+	for unitType := range unitTypes {
+		filtered := make([]rune, 0, len(data))
+		for _, char := range data {
+			if unicode.ToLower(char) != unitType {
+				filtered = append(filtered, char)
+			}
+		}
+		length := reactPolymer(string(filtered))
+		if length < shortestPolymerLength {
+			shortestPolymerLength = length
+		}
+	}
+
+	return shortestPolymerLength
 }
