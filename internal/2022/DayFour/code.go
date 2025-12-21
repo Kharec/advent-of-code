@@ -27,6 +27,7 @@ func PartOne(data []string) int {
 
 		minStart := min(firstRangeStart, secondRangeStart)
 		maxEnd := max(firstRangeEnd, secondRangeEnd)
+
 		if (minStart == firstRangeStart && maxEnd == firstRangeEnd) || (minStart == secondRangeStart && maxEnd == secondRangeEnd) {
 			count++
 		}
@@ -36,5 +37,18 @@ func PartOne(data []string) int {
 }
 
 func PartTwo(data []string) int {
-	return 0
+	count := 0
+	for _, line := range data {
+		parts := strings.Split(line, ",")
+
+		var firstRangeStart, firstRangeEnd, secondRangeStart, secondRangeEnd int
+		fmt.Sscanf(parts[0], "%d-%d", &firstRangeStart, &firstRangeEnd)
+		fmt.Sscanf(parts[1], "%d-%d", &secondRangeStart, &secondRangeEnd)
+
+		if firstRangeStart <= secondRangeEnd && secondRangeStart <= firstRangeEnd {
+			count++
+		}
+	}
+
+	return count
 }
