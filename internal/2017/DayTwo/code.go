@@ -47,5 +47,25 @@ func PartOne(data [][]int) int {
 }
 
 func PartTwo(data [][]int) int {
-	return 0
+	sum := 0
+	for _, row := range data {
+		found := false
+		for idx, first := range row {
+			for _, second := range row[idx+1:] {
+				max, min := first, second
+				if first < second {
+					max, min = second, first
+				}
+				if min != 0 && max%min == 0 {
+					sum += max / min
+					found = true
+					break
+				}
+			}
+			if found {
+				break
+			}
+		}
+	}
+	return sum
 }
