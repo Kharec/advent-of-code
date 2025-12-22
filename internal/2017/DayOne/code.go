@@ -33,5 +33,13 @@ func PartOne(data []int) int {
 }
 
 func PartTwo(data []int) int {
-	return 0
+	sum := 0
+	halfway := len(data) / 2
+	for idx := range data {
+		halfwayIndex := (idx + halfway) % len(data)
+		if data[idx] == data[halfwayIndex] {
+			sum += data[idx]
+		}
+	}
+	return sum
 }
