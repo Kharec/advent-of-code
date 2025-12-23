@@ -39,3 +39,51 @@ func TestPartOne(t *testing.T) {
 		})
 	}
 }
+
+func TestPartTwo(t *testing.T) {
+	tests := []struct {
+		name     string
+		input    []string
+		expected int
+	}{
+		{
+			name:     "abcde fghij is valid",
+			input:    []string{"abcde fghij"},
+			expected: 1,
+		},
+		{
+			name:     "abcde xyz ecdab is not valid",
+			input:    []string{"abcde xyz ecdab"},
+			expected: 0,
+		},
+		{
+			name:     "a ab abc abd abf abj is valid",
+			input:    []string{"a ab abc abd abf abj"},
+			expected: 1,
+		},
+		{
+			name:     "iiii oiii ooii oooi oooo is valid",
+			input:    []string{"iiii oiii ooii oooi oooo"},
+			expected: 1,
+		},
+		{
+			name:     "oiii ioii iioi iiio is not valid",
+			input:    []string{"oiii ioii iioi iiio"},
+			expected: 0,
+		},
+		{
+			name:     "multiple passphrases",
+			input:    []string{"abcde fghij", "abcde xyz ecdab", "a ab abc abd abf abj", "oiii ioii iioi iiio"},
+			expected: 2,
+		},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			got := PartTwo(tt.input)
+			if got != tt.expected {
+				t.Errorf("PartTwo() = %d, want %d", got, tt.expected)
+			}
+		})
+	}
+}
