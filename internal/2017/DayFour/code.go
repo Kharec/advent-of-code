@@ -3,6 +3,7 @@ package dayfour
 import (
 	"advent-of-code/internal/registry"
 	"os"
+	"slices"
 	"strings"
 )
 
@@ -36,5 +37,24 @@ func PartOne(data []string) int {
 }
 
 func PartTwo(data []string) int {
-	return 0
+	validCount := 0
+	for _, passphrase := range data {
+		words := strings.Fields(passphrase)
+		seen := make(map[string]bool, len(words))
+		hasAnagram := false
+		for _, word := range words {
+			runes := []rune(word)
+			slices.Sort(runes)
+			normalized := string(runes)
+			if seen[normalized] {
+				hasAnagram = true
+				break
+			}
+			seen[normalized] = true
+		}
+		if !hasAnagram {
+			validCount++
+		}
+	}
+	return validCount
 }
