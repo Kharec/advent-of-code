@@ -15,16 +15,16 @@ type DayRunner[T any] struct {
 	PartTwo    func(T) int
 }
 
-func (r *DayRunner[T]) Run(input string, part string) {
-	data := r.ParseInput(input)
+func (runner *DayRunner[T]) Run(input string, part string) {
+	data := runner.ParseInput(input)
 	switch part {
 	case "":
-		fmt.Println(r.PartOne(data))
-		fmt.Println(r.PartTwo(data))
+		fmt.Println(runner.PartOne(data))
+		fmt.Println(runner.PartTwo(data))
 	case "1":
-		fmt.Println(r.PartOne(data))
+		fmt.Println(runner.PartOne(data))
 	case "2":
-		fmt.Println(r.PartTwo(data))
+		fmt.Println(runner.PartTwo(data))
 	default:
 		fmt.Fprintf(os.Stderr, "Invalid part: %s\n", part)
 		os.Exit(1)
