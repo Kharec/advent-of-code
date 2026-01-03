@@ -39,5 +39,22 @@ func PartOne(data []int) int {
 }
 
 func PartTwo(data []int) int {
-	return 0
+	instructions := make([]int, len(data))
+	copy(instructions, data)
+
+	position := 0
+	steps := 0
+
+	for position >= 0 && position < len(instructions) {
+		jump := instructions[position]
+		if jump >= 3 {
+			instructions[position]--
+		} else {
+			instructions[position]++
+		}
+		position += jump
+		steps++
+	}
+
+	return steps
 }
