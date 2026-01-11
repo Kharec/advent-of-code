@@ -79,20 +79,12 @@ func calculateScore(ingredients []ingredient, amounts []int) int {
 	return capacity * durability * flavor * texture
 }
 
-func findMaxScore(ingredients []ingredient, remaining int, amounts []int, index int) int {
-	if index == len(ingredients)-1 {
-		amounts[index] = remaining
-		return calculateScore(ingredients, amounts)
+func calculateCalories(ingredients []ingredient, amounts []int) int {
+	var calories int
+	for idx, ing := range ingredients {
+		calories += ing.calories * amounts[idx]
 	}
-	maxScore := 0
-	for i := 0; i <= remaining; i++ {
-		amounts[index] = i
-		score := findMaxScore(ingredients, remaining-i, amounts, index+1)
-		if score > maxScore {
-			maxScore = score
-		}
-	}
-	return maxScore
+	return calories
 }
 
 func PartOne(data []string) int {
@@ -101,9 +93,49 @@ func PartOne(data []string) int {
 		ingredients = append(ingredients, parseIngredient(line))
 	}
 	amounts := make([]int, len(ingredients))
-	return findMaxScore(ingredients, 100, amounts, 0)
+	var findMaxScore func(remaining int, index int) int
+	findMaxScore = func(remaining int, index int) int {
+		if index == len(ingredients)-1 {
+			amounts[index] = remaining
+			return calculateScore(ingredients, amounts)
+		}
+		maxScore := 0
+		for idx := 0; idx <= remaining; idx++ {
+			amounts[index] = idx
+			score := findMaxScore(remaining-idx, index+1)
+			if score > maxScore {
+				maxScore = score
+			}
+		}
+		return maxScore
+	}
+	return findMaxScore(100, 0)
 }
 
 func PartTwo(data []string) int {
-	return 0
+	var ingredients []ingredient
+	for _, line := range data {
+		ingredients = append(ingredients, parseIngredient(line))
+	}
+	amounts := make([]int, len(ingredients))
+	var findMaxScoreWithCalories func(remaining int, index int) int
+	findMaxScoreWithCalories = func(remaining int, index int) int {
+		if index == len(ingredients)-1 {
+			amounts[index] = remaining
+			if calculateCalories(ingredients, amounts) == 500 {
+				return calculateScore(ingredients, amounts)
+			}
+			return 0
+		}
+		maxScore := 0
+		for idx := 0; idx <= remaining; idx++ {
+			amounts[index] = idx
+			score := findMaxScoreWithCalories(remaining-idx, index+1)
+			if score > maxScore {
+				maxScore = score
+			}
+		}
+		return maxScore
+	}
+	return findMaxScoreWithCalories(100, 0)
 }
