@@ -2,6 +2,7 @@ package year2025
 
 import (
 	_ "advent-of-code/internal/2025/DayEight"
+	_ "advent-of-code/internal/2025/DayEleven"
 	_ "advent-of-code/internal/2025/DayFive"
 	_ "advent-of-code/internal/2025/DayFour"
 	_ "advent-of-code/internal/2025/DayNine"
