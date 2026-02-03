@@ -17,7 +17,27 @@ func ParseInput(filepath string) []string {
 }
 
 func PartOne(data []string) int {
-	return 0
+	graph := make(map[string][]string)
+
+	for _, line := range data {
+		device, outputsStr, _ := strings.Cut(line, ": ")
+		graph[device] = strings.Fields(outputsStr)
+	}
+
+	var countPaths func(string) int
+	countPaths = func(node string) int {
+		if node == "out" {
+			return 1
+		}
+
+		count := 0
+		for _, neighbor := range graph[node] {
+			count += countPaths(neighbor)
+		}
+		return count
+	}
+
+	return countPaths("you")
 }
 
 func PartTwo(data []string) int {
