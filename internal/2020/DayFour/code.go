@@ -37,8 +37,8 @@ func PartOne(data []string) int {
 		fields := strings.Fields(passport)
 		present := make(map[string]bool)
 		for _, field := range fields {
-			if idx := strings.Index(field, ":"); idx != -1 {
-				present[field[:idx]] = true
+			if before, _, ok := strings.Cut(field, ":"); ok {
+				present[before] = true
 			}
 		}
 		missing := false
