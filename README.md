@@ -81,9 +81,9 @@ internal/2020/DayOne/code_test.go
 
 Occasionally, a puzzle requires a string as the answer. However, my solution framework expects PartOne/PartTwo functions to return integers.
 
-To work around this, I print the string result (see [2018D2P2](https://git.kharec.info/Kharec/advent-of-code/tree/main/internal/2018/DayTwo/code.go)) and return a dummy integer to satisfy the type requirements.
+To work around this, I print the string result (see [2018D2P2](https://github.com/Kharec/advent-of-code/tree/main/internal/2018/DayTwo/code.go)) and return a dummy integer to satisfy the type requirements.
 
-Meanwhile, the corresponding [test](https://git.kharec.info/Kharec/advent-of-code/tree/main/internal/2018/DayTwo/code_test.go) captures the output and verifies that the correct string is produced.
+Meanwhile, the corresponding [test](https://github.com/Kharec/advent-of-code/tree/main/internal/2018/DayTwo/code_test.go) captures the output and verifies that the correct string is produced.
 
 It's not the most elegant solution, but since only a handful of days across all Advent of Code years require a string result, this compromise keeps the rest of the code simple.
 
